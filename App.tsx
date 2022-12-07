@@ -5,6 +5,7 @@ import {ActivityIndicator, StatusBar} from 'react-native'
 
 import { Home } from '@screens/Home';
 import { StatisticsPainel } from '@screens/StatisticsPainel';
+import { NewMeal } from '@screens/NewMeal';
 
 export default function App() {
 
@@ -12,8 +13,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Home/> 
+      {/* <Home/>  */}
       {/* <StatisticsPainel/> */}
+      <NewMeal/>
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
