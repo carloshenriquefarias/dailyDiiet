@@ -1,8 +1,9 @@
-import { Container, Title, Text } from "./styles";
+import { Container, Title, Text, IconHeading } from "./styles";
 
 export function HighlightHeader (){
   return (
-    <Container>      
+    <Container>  
+      <IconHeading/>
       <Title>
         {/* {title} */}
         90,86%

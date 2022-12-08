@@ -16,6 +16,7 @@ export const Container = styled.View`
   align-items: center; */
   padding-top: 50px;
   padding-left: 15px;  
+  font-weight: bold;
 `;
 
 export const Title = styled.Text`
@@ -26,6 +27,7 @@ export const Title = styled.Text`
   `};
   text-align: center;
   margin-left: 90px; //verificar depois  
+  font-weight: bold;
 `;
 
 export const IconHeading = styled(ArrowLeft).attrs(({ theme }) => ({

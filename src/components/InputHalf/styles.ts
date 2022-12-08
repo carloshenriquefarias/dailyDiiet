@@ -1,9 +1,9 @@
 import styled, {css}from "styled-components/native";
-// import {UsersThree } from 'phosphor-react-native';
-// import { TextInput } from "react-native";
+import { TextInput } from "react-native";
 
 export const Container = styled.View`
-    margin: 20px;
+    /* margin-top: 40px; */
+    /* height: 100px; */
 `
 export const Header = styled.Text`
     ${({ theme }) => css`
@@ -14,8 +14,9 @@ export const Header = styled.Text`
     margin-bottom: 5px;
     font-weight: bold;
 `
-export const Title = styled.TextInput`
-    width: 100%;
+export const Title = styled(TextInput)`    
+    width: 170px;
+    height: 48px;
     padding: 10px;
     border-radius: 6px;
     ${({ theme }) => css`

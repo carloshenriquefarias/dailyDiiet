@@ -6,22 +6,27 @@ import {ActivityIndicator, StatusBar} from 'react-native'
 import { Home } from '@screens/Home';
 import { StatisticsPainel } from '@screens/StatisticsPainel';
 import { NewMeal } from '@screens/NewMeal';
+import { Result } from '@screens/Result';
+
+import {Routes} from './src/routes';
 
 export default function App() {
 
-  // const [fontLoaded] = useFonts({Roboto_400Regular,Roboto_700Bold})
+  const [fontLoaded] = useFonts({Roboto_400Regular,Roboto_700Bold})
 
   return (
     <ThemeProvider theme={theme}>
       {/* <Home/>  */}
       {/* <StatisticsPainel/> */}
-      <NewMeal/>
+      {/* <NewMeal/> */}
+      {/* <Result/> */}
+
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
         translucent
       />   
-      {/* { fontLoaded ? <Home/> : <ActivityIndicator/> }  */}
+      { fontLoaded ? <Routes/> : <ActivityIndicator/> } 
     </ThemeProvider>       
   );
 }

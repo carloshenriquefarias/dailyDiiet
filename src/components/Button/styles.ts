@@ -14,11 +14,13 @@ export const Container = styled(TouchableOpacity)<Props>`
   max-height: 56px;
   background-color: ${({ theme, type }) => 
     type === 'PRIMARY' ? theme.COLORS.BASE.GRAY_600 : 
-    theme.COLORS.BASE.GRAY_600};
+    theme.COLORS.BASE.GRAY_200};
   border-radius: 6px;
+  
   flex-direction: row;
   justify-content: center;
   align-items: center; 
+  margin: 10px 20px;
 `;
 
 export const Title = styled.Text`
