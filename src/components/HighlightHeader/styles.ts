@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import { ForkKnife } from "phosphor-react-native";
+import { ArrowLeft} from "phosphor-react-native";
 
 export const Container = styled.View`
   flex: 1;
@@ -22,6 +22,7 @@ export const Title = styled.Text`
     color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.BOLD};
   `};
+  
 `;
 
 export const Text = styled.Text`
@@ -33,9 +34,12 @@ export const Text = styled.Text`
   `};
 `;
 
-// export const IconHeading = styled(ForkKnife).attrs(({ theme }) => ({
-//   size: 18,    
-//   color: theme.COLORS.BASE.GRAY_700,
-//   weight: 'bold',
-//   align: 'right',  
-// }))``;
+export const IconHeading = styled(ArrowLeft).attrs(({ theme }) => ({
+  size: 25,    
+  color: theme.COLORS.BASE.GRAY_700,
+   
+}))`
+  /* weight: 'bold',
+  align-items: left,
+  align: 'right',  */
+`;

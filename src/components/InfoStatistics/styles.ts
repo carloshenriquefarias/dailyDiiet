@@ -8,7 +8,7 @@ export const Container = styled.View`
   margin: 5px; 
 
   background-color: ${({ theme }) =>    
-    theme.COLORS.BASE.GRAY_200};
+    theme.COLORS.BASE.GRAY_300};
   border-radius: 6px;
   
   justify-content: center;
@@ -49,6 +49,7 @@ export const Text = styled.Text`
     font-size: ${theme.FONTS.SIZE.SM}px;
     color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.REGULAR};
+    /* background-color: ${theme.COLORS.BASE.GRAY_300}; */
   `};
 `;
 

@@ -4,6 +4,7 @@ import styled, { css } from "styled-components/native";
 export const Container = styled.View`
     flex: 1;  
     border-radius: 6px; 
+    align-items: center;
 `;
 
 export const ContentInput = styled.View`
@@ -33,4 +34,8 @@ export const HeaderButtonHalf = styled.Text`
     margin-bottom: 10px;
     margin-left: 20px;
     font-weight: bold;
+`
+
+export const Icon = styled.Image`
+    margin-bottom: 30px;
 `

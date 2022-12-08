@@ -3,7 +3,9 @@ import styled, {css}from "styled-components/native";
 // import { TextInput } from "react-native";
 
 export const Container = styled.View`
-    margin: 20px;
+    margin: 0 20px;
+    height: 100px;
+    margin-bottom: 20px;
 `
 export const Header = styled.Text`
     ${({ theme }) => css`
@@ -15,7 +17,8 @@ export const Header = styled.Text`
     font-weight: bold;
 `
 export const Title = styled.TextInput`
-    width: 100%;
+    width: 100%;    
+    height: 120px;
     padding: 10px;
     border-radius: 6px;
     ${({ theme }) => css`

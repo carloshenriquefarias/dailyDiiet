@@ -6,7 +6,7 @@ type Props = TextInputProps &  {
     title: string;
 }
 
-export function Input({ title, ...rest }: Props){
+export function InputDescription({ title, ...rest }: Props){
 
     const {COLORS} = useTheme()
    

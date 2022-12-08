@@ -8,11 +8,28 @@ import { MealList } from '@components/MealList';
 
 import { FlatList, Alert} from 'react-native';
 
+import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import {useState, useEffect, useCallback} from 'react'
+
+type RootParamList = {
+    home: undefined;
+    newmeal: undefined;
+    statisticspainel: undefined;
+    result: {
+      newmeal: string;
+    }
+}
 
 export function Home(){
 
     const [meal, setMeal] = useState<string[]>(['X-tudo', 'X-Bacon', 'Pão', 'Queijo'])
+
+    const navigation = useNavigation()
+
+    function handleNewMeal(){
+        navigation.navigate('newmeal') //Definir os tipos de navegação no @types
+        navigation.navigate('meal') //Definir os tipos de navegação no @types
+    }
 
     return(
         <Container>
@@ -25,8 +42,14 @@ export function Home(){
             <Button
                 title="Nova Refeição"
                 type='PRIMARY'
-                // onPress={handleNewGroup}
-            />               
+                onPress={handleNewMeal}
+            />        
+
+            <Button
+                title="Ver refeição"
+                type='PRIMARY'
+                onPress={handleNewMeal}
+            />         
 
             <FlatList
                 data={meal}
