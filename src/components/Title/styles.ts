@@ -6,7 +6,7 @@ export const TitleCentral = styled.Text`
     color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.BOLD};    
   `};
-  margin-top: 25px;
+  margin-top: 10px;
   margin-bottom: 12px;
   text-align: center;
 `;

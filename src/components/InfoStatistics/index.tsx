@@ -1,35 +1,41 @@
-import { Container, Title, Text, Informations, Content } from "./styles";
+import { Container, Title, Text, Informations, Content, ButtonHalfStyleProps } from "./styles";
 
-export function InfoStatistics (){
+type Props = {     
+    type?: ButtonHalfStyleProps;
+    title?: string;
+    text: string;
+}
+
+export function InfoStatistics ({ title, type, text = 'PRIMARY', ...rest }: Props){
   return (
-    <>    
-        <Container>      
-            <Title>
-                {/* {title} */}
-                22
-            </Title>
+    <>
+        <>    
+            <Container>      
+                <Title>
+                    {title}                
+                </Title>
 
-            <Text>
-                Melhor sequencia de pratos dentro da dieta
-            </Text>
-        </Container>
+                <Text>
+                    {text}                
+                </Text>
+            </Container>   
 
-        <Container>
-            <Title>
-                {/* {title} */}
-                109
-            </Title>
+            <Container>      
+                <Title>
+                    {title}                
+                </Title>
 
-            <Text>
-                Refeições registradas
-            </Text>
-        </Container>
+                <Text>
+                    {text}                
+                </Text>
+            </Container>
+        
+        </>
 
         <Content>
-            <Informations>
+            <Informations type="PRIMARY">
                 <Title>
-                    {/* {title} */}
-                    99
+                    {title}                    
                 </Title>
 
                 <Text>
@@ -37,7 +43,7 @@ export function InfoStatistics (){
                 </Text>
             </Informations>
 
-            <Informations>
+            <Informations type="SECONDARY">
                 <Title>
                     {/* {title} */}
                     10
@@ -48,8 +54,8 @@ export function InfoStatistics (){
                 </Text>
             </Informations>
         </Content>
-        
     </>
+    
     
   )
 }

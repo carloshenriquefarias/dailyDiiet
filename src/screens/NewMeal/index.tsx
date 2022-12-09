@@ -30,7 +30,9 @@ export function NewMeal(){
 
     return(
         <Container>                     
-            <NewMealHeader/>            
+            <NewMealHeader
+                title='Refeição'
+            />            
             <Input
                 placeholder='Digite seu alimento'
                 title='Nome da refeição'
@@ -70,6 +72,7 @@ export function NewMeal(){
                 title="Cadastrar Refeição"
                 type='PRIMARY'
                 onPress={handleRegister}
+                style={{marginRight: 20, marginLeft: 20}} //VER DEPOIS
             />   
 
         </Container>

@@ -12,15 +12,16 @@ export const Container = styled(TouchableOpacity)<Props>`
   flex: 1;
   min-height: 56px;
   max-height: 56px;
+  width: 100%;
   background-color: ${({ theme, type }) => 
     type === 'PRIMARY' ? theme.COLORS.BASE.GRAY_600 : 
     theme.COLORS.BASE.GRAY_200};
-  border-radius: 6px;
+  border-radius: 8px;
   
   flex-direction: row;
   justify-content: center;
   align-items: center; 
-  margin: 10px 20px;
+  margin-bottom: 20px;
 `;
 
 export const Title = styled.Text`
@@ -37,4 +38,4 @@ export const IconHeading = styled(Plus).attrs(({ theme }) => ({
     color: theme.COLORS.BASE.LIGHT,
     weight: 'bold',
     align: 'right',  
-  }))``;
+}))``;

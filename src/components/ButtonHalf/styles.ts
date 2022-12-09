@@ -9,14 +9,17 @@ type Props = {
 
 export const Container = styled(TouchableOpacity)<Props>`
   flex: 1;
-    width: 160px;
-    height: 48px;
+  width: 160px;
+  height: 48px;
+
   background-color: ${({ theme, type }) => 
     type === 'PRIMARY' ? theme.COLORS.BASE.GRAY_200 : 
-    theme.COLORS.STYLES.PRIMARY_LIGHT};
+  theme.COLORS.STYLES.PRIMARY_LIGHT};
+  
   border-radius: 6px; 
   justify-content: center;
   align-items: center; 
+  margin-top: 15px;
   margin: 5px;
 `;
 
