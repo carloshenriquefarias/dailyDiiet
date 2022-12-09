@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components/native";
 
+export type ButtonHalfStyleProps = {
+  type: 'PRIMARY' | 'SECONDARY';
+  // isActive: false;
+}
+
+type Props = ButtonHalfStyleProps;
+
 export const Container = styled.View`
   flex: 1;
   min-height: 100px;
@@ -8,23 +15,26 @@ export const Container = styled.View`
   margin: 5px; 
 
   background-color: ${({ theme }) =>    
-    theme.COLORS.BASE.GRAY_300};
+    theme.COLORS.BASE.GRAY_200};
   border-radius: 6px;
   
   justify-content: center;
   align-items: center;
 `;
 
-export const Informations = styled.View`
+export const Informations = styled.View<Props>`
   flex: 1;
   min-height: 100px;
   max-height: 100px;
   width: 45%;
-  margin: 5px;
-  
+  margin: 5px;  
 
-  background-color: ${({ theme }) =>    
-    theme.COLORS.STYLES.PRIMARY_LIGHT};
+  background-color: ${({ theme, type }) => type === 'PRIMARY' ?
+    theme.COLORS.STYLES.PRIMARY_LIGHT : theme.COLORS.STYLES.SECONDARY_LIGHT
+  };
+
+  /* background-color: ${({ theme }) =>    
+    theme.COLORS.STYLES.PRIMARY_LIGHT}; */
   border-radius: 6px;
   
   justify-content: center;
@@ -37,7 +47,7 @@ export const Content = styled.View`
 
 export const Title = styled.Text`
   ${({ theme }) => css`
-    font-size: 40px;
+    font-size: 30px;
     color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.BOLD};
   `};

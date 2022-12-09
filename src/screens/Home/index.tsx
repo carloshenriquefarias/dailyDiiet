@@ -28,38 +28,46 @@ export function Home(){
 
     function handleNewMeal(){
         navigation.navigate('newmeal') //Definir os tipos de navegação no @types
-        navigation.navigate('meal') //Definir os tipos de navegação no @types
+        // navigation.navigate('meal') //Definir os tipos de navegação no @types       
+    }
+
+    function handleStatisticsMenu(){       
+        navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
     }
 
     return(
         <Container>
+
             <Header/>
+
             <Statistics
-                // icon='arrow-top-right'
-                // sideOfIcon='RIGHT'
+                title='90,85%'
+                type='PRIMARY'
+                text='das refeições dentro da dieta'               
+                onPress={handleStatisticsMenu}
             />
-            <Subtitle/>            
+
+            <Subtitle/> 
+
             <Button
                 title="Nova Refeição"
                 type='PRIMARY'
                 onPress={handleNewMeal}
             />        
 
-            <Button
+            {/* <Button
                 title="Ver refeição"
                 type='PRIMARY'
-                onPress={handleNewMeal}
-            />         
+                onPress={handleStatisticsMenu}
+            />          */}
 
             <FlatList
                 data={meal}
                 keyExtractor={item => item}
                 renderItem={({item}) => (
                     <MealList
-                        title={item}
-                        // meal={item.meal}
-                        // hour={item.hour}
-                        // onPress={() => handleOpenGroup (item)}
+                        title={item}                        
+                        onPress={handleStatisticsMenu}                        
                     />
                 )}
                 // contentContainerStyle={meal.length === 0 && {flex: 1}}

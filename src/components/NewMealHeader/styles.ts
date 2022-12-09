@@ -12,7 +12,7 @@ export const Container = styled.View`
     theme.COLORS.BASE.GRAY_300};
   border-radius: 6px;
   
-  /* justify-content: center;
+  /* justify-content: center; //PERGUNTAR AO PRISCO
   align-items: center; */
   padding-top: 50px;
   padding-left: 15px;  

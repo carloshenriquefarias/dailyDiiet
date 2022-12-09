@@ -1,17 +1,24 @@
-import { Container, Title, IconHeading, Text } from "./styles";
+import { Container, Title, IconHeading, Text, StatisticsButtonTypeStyleProps} from "./styles";
+import { TouchableOpacityProps } from "react-native";
 
-export function Statistics (){
+type Props = TouchableOpacityProps & {
+  title: string; 
+  text: string; 
+  type?: StatisticsButtonTypeStyleProps;
+}
+
+export function Statistics ({ title, text, type = 'PRIMARY', ...rest }: Props){
+
   return (
-    <Container>
+    <Container type="PRIMARY">
       <IconHeading/>      
       
       <Title>
-        {/* {title} */}
-        90,86%
+        {title}        
       </Title>
 
       <Text>
-        das refeições dentro da dieta
+        {text}        
       </Text>
 
     </Container>

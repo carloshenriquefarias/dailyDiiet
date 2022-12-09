@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
     flex: 1;  
+    background-color: ${({ theme }) =>    
+    theme.COLORS.BASE.LIGHT};
     border-radius: 6px;
-    /* margin: 20px; */
+    padding: 24px
+    /* margin-bottom: 20px; */    
 `;

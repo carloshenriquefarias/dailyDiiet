@@ -6,14 +6,13 @@ export const Containers = styled.View`
     margin-bottom: 10px;
     margin-top: 15px;
     flex-direction: row;
-    justify-content: space-between;
-    /* background-color: '#BF3B44' ; */
+    justify-content: space-between;    
 `
 export const Person = styled.View`
     width: 40px;
     height: 40px;
     border: 1px solid  ${({ theme }) => theme.COLORS.BASE.GRAY_700};
-    /* border-radius: 50%; */
+    border-radius: 50px;
 `
 
 export const Container = styled.View`
@@ -22,19 +21,12 @@ export const Container = styled.View`
     margin-top: 15px;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    background-color: '#BF3B44' ;
+    align-items: center;    
 `
 
-export const Title = styled.Text`
-    color: '#BF3B44';
+export const Title = styled.Text`   
+    font-weight: bold;
 `
-
-// export const Person = styled.View`
-//     width: 40px;
-//     height: 40px;
-//     border-radius: 50%;
-// `
 
 export const Content = styled.View`
     flex-direction: row;

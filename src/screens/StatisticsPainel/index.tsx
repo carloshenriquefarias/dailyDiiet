@@ -3,6 +3,7 @@ import { HighlightHeader } from '@components/HighlightHeader';
 import { Title } from '@components/Title';
 import { InfoStatistics } from '@components/InfoStatistics';
 import { Button } from '@components/Button';
+// import { ButtonHalf } from '@components/ButtonHalf';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import {useState, useEffect, useCallback} from 'react'
@@ -25,15 +26,27 @@ export function StatisticsPainel(){
     }
 
     return(
-        <Container>                     
+
+        <>
             <HighlightHeader/>
-            <Title/>
-            <InfoStatistics/>
-            <Button
-                title="Voltar para a Home"
-                type='PRIMARY'
-                onPress={handleGoBackHome}
-            />
-        </Container>
+
+            <Container>                     
+                
+                <Title/>
+
+                <InfoStatistics                    
+                    title='12'
+                    text='Melhor sequencia de pratos dentro da dieta'
+                />
+
+                <Button
+                    title="Voltar para a Home"
+                    type='PRIMARY'
+                    onPress={handleGoBackHome}
+                />
+
+            </Container>
+        </>
+        
     );
 }

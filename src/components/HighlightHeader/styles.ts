@@ -9,7 +9,7 @@ export const Container = styled.View`
 
   background-color: ${({ theme }) =>    
     theme.COLORS.STYLES.PRIMARY_LIGHT};
-  border-radius: 6px;
+  /* border-radius: 6px; */
   
   justify-content: center;
   align-items: center;
