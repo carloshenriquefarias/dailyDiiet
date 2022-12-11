@@ -16,12 +16,13 @@ export const Container = styled(TouchableOpacity)<Props>`
 
   background-color: ${({ theme, type }) => 
     type === 'PRIMARY' ? theme.COLORS.STYLES.PRIMARY_LIGHT : 
-  theme.COLORS.STYLES.SECONDARY_LIGHT};
-  
-  border-radius: 6px;
-  
-  /* justify-content: center;
-  align-items: center; */
+  theme.COLORS.STYLES.SECONDARY_LIGHT};  
+  border-radius: 6px;   
+`;
+
+export const subContainer = styled.View`  
+  justify-content: center;
+  align-items: flex-end;
 `;
 
 export const Title = styled.Text`

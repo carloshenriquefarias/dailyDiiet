@@ -11,8 +11,8 @@ export const Container = styled.View`
   flex: 1;
   min-height: 100px;
   max-height: 100px;
-  width: 100%;
-  margin: 5px; 
+  width: 95%;
+  margin: 10px; 
 
   background-color: ${({ theme }) =>    
     theme.COLORS.BASE.GRAY_200};
@@ -31,18 +31,14 @@ export const Informations = styled.View<Props>`
 
   background-color: ${({ theme, type }) => type === 'PRIMARY' ?
     theme.COLORS.STYLES.PRIMARY_LIGHT : theme.COLORS.STYLES.SECONDARY_LIGHT
-  };
-
-  /* background-color: ${({ theme }) =>    
-    theme.COLORS.STYLES.PRIMARY_LIGHT}; */
-  border-radius: 6px;
-  
+  };  
+  border-radius: 6px;  
   justify-content: center;
   align-items: center;
 `;
 
 export const Content = styled.View`
-    flex-direction: row;
+  flex-direction: row;
 `;
 
 export const Title = styled.Text`

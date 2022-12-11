@@ -1,17 +1,21 @@
-import { Container, Title, IconHeading } from "./styles";
+import { Container, Title, IconHeading, subContainer } from "./styles";
 
 type HeaderProps = {
   title: string,  
 };
 
-export function NewMealHeader ({ title}: HeaderProps){
+export function NewMealHeader ({title}: HeaderProps){
   return (
-    <Container>  
-      <IconHeading/>      
+    <Container>
+
+      {/* <subContainer> */}
+        <IconHeading/>
+      {/* </subContainer>  */}
+            
       <Title>
-        {title}
-        {/* Nova Refeição */}
+        {title}        
       </Title>
+
     </Container>
   )
 }
