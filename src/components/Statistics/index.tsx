@@ -1,4 +1,4 @@
-import { Container, Title, IconHeading, Text, StatisticsButtonTypeStyleProps} from "./styles";
+import { Container, Title, IconHeading, Text, StatisticsButtonTypeStyleProps, subContainer} from "./styles";
 import { TouchableOpacityProps } from "react-native";
 
 type Props = TouchableOpacityProps & {
@@ -11,7 +11,10 @@ export function Statistics ({ title, text, type = 'PRIMARY', ...rest }: Props){
 
   return (
     <Container type="PRIMARY">
-      <IconHeading/>      
+      
+      {/* <subContainer> */}
+        <IconHeading/>
+      {/* </subContainer>             */}
       
       <Title>
         {title}        

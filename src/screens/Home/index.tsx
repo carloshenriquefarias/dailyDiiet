@@ -22,7 +22,7 @@ type RootParamList = {
 
 export function Home(){
 
-    const [meal, setMeal] = useState<string[]>(['X-tudo', 'X-Bacon', 'Pão', 'Queijo'])
+    const [meal, setMeal] = useState<string[]>(['X-tudo', 'X-Bacon', 'Pão', 'Queijo', 'X-Bacons', 'Pãos', 'Queijos'])
 
     const navigation = useNavigation()
 
@@ -66,7 +66,9 @@ export function Home(){
                 keyExtractor={item => item}
                 renderItem={({item}) => (
                     <MealList
-                        title={item}                        
+                        date='12.12.12'
+                        hour='12:54'
+                        title={item}
                         onPress={handleStatisticsMenu}                        
                     />
                 )}

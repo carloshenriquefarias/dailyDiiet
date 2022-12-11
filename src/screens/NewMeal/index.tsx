@@ -72,7 +72,7 @@ export function NewMeal(){
                 title="Cadastrar Refeição"
                 type='PRIMARY'
                 onPress={handleRegister}
-                style={{marginRight: 20, marginLeft: 20}} //VER DEPOIS
+                style={{marginRight: 20}} //VER DEPOIS
             />   
 
         </Container>

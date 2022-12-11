@@ -19,6 +19,13 @@ export const Container = styled.View`
   font-weight: bold;
 `;
 
+export const subContainer = styled.View`  
+  padding-top: 50px;
+  padding-left: 15px;  
+  background-color: ${({ theme }) =>    
+    theme.COLORS.BASE.GRAY_700};  
+`;
+
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-size: 20px;
