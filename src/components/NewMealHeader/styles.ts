@@ -19,11 +19,12 @@ export const Container = styled.View`
   font-weight: bold;
 `;
 
-export const subContainer = styled.View`  
-  padding-top: 50px;
-  padding-left: 15px;  
+export const SubContainer = styled.View`  
+  /* padding-top: 20px; */
+  padding-left: 12px;  
   background-color: ${({ theme }) =>    
-    theme.COLORS.BASE.GRAY_700};  
+    theme.COLORS.BASE.GRAY_100}; 
+  font-weight: bold; 
 `;
 
 export const Title = styled.Text`

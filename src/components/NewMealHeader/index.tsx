@@ -1,4 +1,4 @@
-import { Container, Title, IconHeading, subContainer } from "./styles";
+import { Container, Title, IconHeading, SubContainer } from "./styles";
 
 type HeaderProps = {
   title: string,  
@@ -8,9 +8,9 @@ export function NewMealHeader ({title}: HeaderProps){
   return (
     <Container>
 
-      {/* <subContainer> */}
+      <SubContainer>
         <IconHeading/>
-      {/* </subContainer>  */}
+      </SubContainer> 
             
       <Title>
         {title}        

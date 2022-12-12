@@ -29,9 +29,16 @@ export const Content = styled(TouchableOpacity)`
     border-radius: 6px;
     flex-direction: row;    
     align-items: center;
+    justify-content: space-between;
     padding: 12px;
     margin-bottom: 10px;    
     border: 1px solid ${({ theme }) => theme.COLORS.BASE.GRAY_300};
+`;
+
+export const SubContent = styled(TouchableOpacity)`
+    flex-direction: row;        
+    align-items: center;
+    justify-content: space-between;
 `;
 
 export const Title = styled.Text`
