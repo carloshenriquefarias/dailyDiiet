@@ -20,9 +20,11 @@ export const Container = styled(TouchableOpacity)<Props>`
   border-radius: 6px;   
 `;
 
-export const subContainer = styled.View`  
+export const SubContainer = styled.View`  
   justify-content: center;
   align-items: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
 `;
 
 export const Title = styled.Text`

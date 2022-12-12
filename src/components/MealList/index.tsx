@@ -1,4 +1,4 @@
-import { Container, Title, Date, Hour, Content, Divider, SubContainer} from './styles';
+import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
 import { TouchableOpacityProps } from "react-native";
 import { Ball } from '@components/Ball';
 
@@ -19,17 +19,22 @@ export function MealList({date, hour, title}: Props ){
             <SubContainer>                
 
                 <Content>
-                    <Hour>
-                        {hour}
-                    </Hour>
 
-                    <Divider>
-                        |
-                    </Divider>
+                    <SubContent>
 
-                    <Title>
-                        {title}
-                    </Title>
+                        <Hour>
+                            {hour}
+                        </Hour>
+
+                        <Divider>
+                            |
+                        </Divider>
+
+                        <Title>
+                            {title}
+                        </Title>
+
+                    </SubContent>                    
 
                     <Ball/>
                     
