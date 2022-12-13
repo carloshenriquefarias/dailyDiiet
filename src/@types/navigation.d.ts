@@ -5,9 +5,11 @@ export declare global {
         newmeal: undefined;
         statisticspainel: undefined;
         meal: undefined;
-        result: {
-          newmeal: string;
-        }
+        result: undefined;
+        
+        // result: {
+        //   newmeal: string;
+        // }
       }
     }
 }

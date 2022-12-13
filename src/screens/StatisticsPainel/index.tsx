@@ -25,10 +25,17 @@ export function StatisticsPainel(){
         navigation.navigate('home') //Definir os tipos de navegação no @types
     }
 
+    function handleGoFeedback(){
+        navigation.navigate('result') //Definir os tipos de navegação no @types
+    }
+
     return(
 
         <>
-            <HighlightHeader/>
+            <HighlightHeader
+                title='90,86%'
+                text='das refeições comidas'
+            />
 
             <Container>                     
                 
@@ -37,12 +44,12 @@ export function StatisticsPainel(){
                 <InfoStatistics                    
                     title='12'
                     text='Melhor sequencia de pratos dentro da dieta'
-                />
+                />               
 
                 <Button
-                    title="Voltar para a Home"
+                    title="Ir para o Feedback"
                     type='PRIMARY'
-                    onPress={handleGoBackHome}
+                    onPress={handleGoFeedback}
                 />
 
             </Container>

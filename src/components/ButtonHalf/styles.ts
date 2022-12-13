@@ -13,12 +13,22 @@ export const Container = styled(TouchableOpacity)<Props>`
   height: 48px;
 
   background-color: ${({ theme, type }) => 
-    type === 'PRIMARY' ? theme.COLORS.BASE.GRAY_200 : 
+    type === 'PRIMARY' ? theme.COLORS.BASE.GRAY_300 : 
   theme.COLORS.STYLES.PRIMARY_LIGHT};
+
+  // Se eu clicar no botao sim ponha a verde e se nao ponha a vermelha
+
+  border: ${({ theme, type }) => 
+    type === 'PRIMARY' ? theme.COLORS.STYLES.PRIMARY_LIGHT : 
+  theme.COLORS.STYLES.SECONDARY_LIGHT};
+  /* ${({ theme }) => css`        
+    border: 1px solid ${theme.COLORS.BASE.GRAY_500};
+  `};  */
   
   border-radius: 6px; 
   justify-content: center;
   align-items: center; 
+  flex-direction: row;
   margin-top: 15px;
   margin: 5px;
 `;

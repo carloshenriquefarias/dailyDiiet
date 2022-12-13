@@ -1,16 +1,32 @@
-import { Container, Title, Text, IconHeading } from "./styles";
+import { Container, Title, Text, IconHeading, SubContainer } from "./styles";
+import { useNavigation } from '@react-navigation/native'; //Navegação
 
-export function HighlightHeader (){
+type Props = {     
+  title: string;
+  text: string;
+}
+
+export function HighlightHeader ({ title, text, ...rest }: Props){
+
+  const navigation = useNavigation()
+
+  function handleGoBack() { 
+    navigation.navigate('home'); //Volta pra tela que voce escolher
+  }
+
   return (
     <Container>  
-      <IconHeading/>
+
+      <SubContainer onPress={handleGoBack}>
+        <IconHeading/>
+      </SubContainer>           
+
       <Title>
-        {/* {title} */}
-        90,86%
+        {title}        
       </Title>
 
       <Text>
-        das refeições dentro da dieta
+        {text}        
       </Text>
 
     </Container>

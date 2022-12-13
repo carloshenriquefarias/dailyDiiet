@@ -19,11 +19,11 @@ export const Container = styled.View`
   font-weight: bold;
 `;
 
-export const SubContainer = styled.View`  
+export const SubContainer = styled.TouchableOpacity`  
   /* padding-top: 20px; */
   padding-left: 12px;  
   background-color: ${({ theme }) =>    
-    theme.COLORS.BASE.GRAY_100}; 
+    theme.COLORS.BASE.GRAY_300}; 
   font-weight: bold; 
 `;
 
@@ -39,7 +39,7 @@ export const Title = styled.Text`
 `;
 
 export const IconHeading = styled(ArrowLeft).attrs(({ theme }) => ({
-    size: 25,    
+    size: 28,    
     color: theme.COLORS.BASE.DARK
     // weight: 'bold',
     // align: 'right',  

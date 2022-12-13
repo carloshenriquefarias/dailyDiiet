@@ -1,47 +1,59 @@
 import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
-import { TouchableOpacityProps } from "react-native";
+import { TouchableOpacityProps, Text } from "react-native";
 import { Ball } from '@components/Ball';
+import { useState } from 'react';
 
 type Props = TouchableOpacityProps & {
-    date: string;
-    hour: string;
-    title: string;      
+    date?: string;
+    hour?: string;
+    title?: string;      
+    mealsGroup: Group
 }
 
-export function MealList({date, hour, title}: Props ){
+type Group = {
+    id: number,
+    data : string
+    refeicoes: MealsItens[]
+}
+
+type MealsItens = {                                
+    hora: string;
+    description: string;
+           
+}
+
+export function MealList({date, hour, title, mealsGroup }: Props ){
     return(
         <Container>
 
             <Date>
-                {date}
+                {mealsGroup.data}
             </Date>
 
-            <SubContainer>                
+            {mealsGroup.refeicoes.map((item: MealsItens) => {
+                return (
+                    <SubContainer>                
+                        <Content>
+                            <SubContent>
+                                <Hour>
+                                    {item.hora}
+                                </Hour>
+                                <Divider>
+                                    |
+                                </Divider>
+                                <Title>
+                                    {item.description}
+                                </Title>
+                            </SubContent>                    
 
-                <Content>
+                            <Ball/>
+                            
+                        </Content> 
 
-                    <SubContent>
+                    </SubContainer>
+                )
+            })}    
 
-                        <Hour>
-                            {hour}
-                        </Hour>
-
-                        <Divider>
-                            |
-                        </Divider>
-
-                        <Title>
-                            {title}
-                        </Title>
-
-                    </SubContent>                    
-
-                    <Ball/>
-                    
-                </Content> 
-
-            </SubContainer>
-                      
         </Container>
     );
 }
