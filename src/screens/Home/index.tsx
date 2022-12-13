@@ -21,6 +21,54 @@ type RootParamList = {
 }
 
 export function Home(){
+    const opcoes_1_dados = [
+        {   
+            "id": 1,
+            "data" : "13/12/2022",
+            "refeicoes": [
+                {                                           
+                    "hora" : "08:00",
+                    "description": "Café da manhã"
+                },
+                {                                                        
+                    "hora" : "12:00",
+                    "description": "Almoço"
+                }
+            ]           
+        },
+        {   
+            "id": 2,
+            "data" : "14/12/2022",
+            "refeicoes": [
+                {                                            
+                    "hora" : "08:00",
+                    "description": "Café da manhã"
+                }
+            ]           
+        }
+    ]
+
+    // const opcoes_2_dados = [
+    //     {
+    //         "id": 1,
+    //         "data" : "13/12/2022",
+    //         "hora" : "12:00",
+    //         "description": "Almoço"
+    //     },
+    //     {
+    //         "id": 2,
+    //         "data" : "13/12/2022",
+    //         "hora" : "12:00",
+    //         "description": "Almoço"
+    //     },
+    //     {
+    //         "id": 3,
+    //         "data" : "14/12/2022",
+    //         "hora" : "08:00",
+    //         "description": "Café da manhã"
+    //     }
+    // ]
+
 
     const [meal, setMeal] = useState<string[]>(['X-tudo', 'X-Bacon', 'Pão', 'Queijo', 'X-Bacons', 'Pãos', 'Queijos'])
 
@@ -62,13 +110,11 @@ export function Home(){
             />          */}
 
             <FlatList
-                data={meal}
-                keyExtractor={item => item}
+                data={opcoes_1_dados}
+                keyExtractor={(item, key) => item.id }
                 renderItem={({item}) => (
                     <MealList
-                        date='12.12.12'
-                        hour='12:54'
-                        title={item}
+                        mealsGroup={item}                      
                         onPress={handleStatisticsMenu}                        
                     />
                 )}

@@ -31,7 +31,7 @@ export function NewMeal(){
     return(
         <Container>                     
             <NewMealHeader
-                title='Refeição'
+                title='Nova Refeição'
             />            
             <Input
                 placeholder='Digite seu alimento'
@@ -64,7 +64,7 @@ export function NewMeal(){
                 />
                 <ButtonHalf                    
                     title='Não'
-                    type='SECONDARY'
+                    type='PRIMARY'
                 />
             </MiniContainer>
 

@@ -10,6 +10,8 @@ export const Content = styled.View`
     flex: 1;  
     border-radius: 6px; 
     margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
 `;
 
 export const Title = styled.Text`
