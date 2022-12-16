@@ -32,18 +32,24 @@ export function MealList({date, hour, title, mealsGroup }: Props ){
 
             {mealsGroup.refeicoes.map((item: MealsItens) => {
                 return (
-                    <SubContainer>                
+                    <SubContainer>  
+
                         <Content>
+                            
                             <SubContent>
+
                                 <Hour>
                                     {item.hora}
                                 </Hour>
+
                                 <Divider>
                                     |
                                 </Divider>
+
                                 <Title>
                                     {item.description}
                                 </Title>
+
                             </SubContent>                    
 
                             <Ball/>

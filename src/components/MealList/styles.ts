@@ -20,6 +20,7 @@ export const SubContainer = styled(TouchableOpacity)`
     /* background-color: ${({theme}) => theme.COLORS.STYLES.PRIMARY_DARK};    */
     flex-direction: column;    
     align-items: center;    
+    margin-bottom: 10px;
 `;
 
 export const Content = styled(TouchableOpacity)`

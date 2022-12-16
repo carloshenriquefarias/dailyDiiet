@@ -5,6 +5,7 @@ import { Statistics } from '@components/Statistics';
 import { Subtitle } from '@components/Subtitle';
 import { Button } from '@components/Button';
 import { MealList } from '@components/MealList';
+import { ListEmpty } from '@components/ListEmpty';
 
 import { FlatList, Alert} from 'react-native';
 
@@ -20,7 +21,13 @@ type RootParamList = {
     }
 }
 
+
+
 export function Home(){
+    
+    const [meal, setMeal] = useState<string[]>([])
+    const navigation = useNavigation()   
+
     const opcoes_1_dados = [
         {   
             "id": 1,
@@ -33,6 +40,18 @@ export function Home(){
                 {                                                        
                     "hora" : "12:00",
                     "description": "Almoço"
+                }, 
+                {                                                        
+                    "hora" : "14:00",
+                    "description": "Merenda"
+                }, 
+                {                                                        
+                    "hora" : "18:00",
+                    "description": "Lanche"
+                }, 
+                {                                                        
+                    "hora" : "20:00",
+                    "description": "Janta"
                 }
             ]           
         },
@@ -43,6 +62,22 @@ export function Home(){
                 {                                            
                     "hora" : "08:00",
                     "description": "Café da manhã"
+                },
+                {                                                        
+                    "hora" : "12:00",
+                    "description": "Almoço"
+                }, 
+                {                                                        
+                    "hora" : "14:00",
+                    "description": "Merenda"
+                }, 
+                {                                                        
+                    "hora" : "18:00",
+                    "description": "Lanche"
+                }, 
+                {                                                        
+                    "hora" : "20:00",
+                    "description": "Janta"
                 }
             ]           
         }
@@ -68,11 +103,7 @@ export function Home(){
     //         "description": "Café da manhã"
     //     }
     // ]
-
-
-    const [meal, setMeal] = useState<string[]>(['X-tudo', 'X-Bacon', 'Pão', 'Queijo', 'X-Bacons', 'Pãos', 'Queijos'])
-
-    const navigation = useNavigation()
+ 
 
     function handleNewMeal(){
         navigation.navigate('newmeal') //Definir os tipos de navegação no @types
@@ -115,11 +146,13 @@ export function Home(){
                 renderItem={({item}) => (
                     <MealList
                         mealsGroup={item}                      
-                        onPress={handleStatisticsMenu}                        
+                        onPress={handleStatisticsMenu} 
+                        // onPress={() => setTeam(item)}                       
                     />
                 )}
+                // horizontal
                 // contentContainerStyle={meal.length === 0 && {flex: 1}}
-                // ListEmptyComponent={() => <ListEmpty message='Que tal cadastrar a primeira turma?'/>}
+                ListEmptyComponent={() => <ListEmpty message='Que tal cadastrar a primeira turma?'/>}
             />               
             
         </Container>

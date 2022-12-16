@@ -51,7 +51,7 @@ export const Text = styled.Text`
 
 export const IconHeading = styled(ArrowUpRight).attrs(({ theme }) => ({
   size: 20,    
-  color: theme.COLORS.BASE.GRAY_700,  
+  color: theme.COLORS.STYLES.PRIMARY_DARK,  
 }))``;
 
 // export const Logo = styled.Image`
