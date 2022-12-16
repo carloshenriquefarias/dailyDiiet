@@ -63,5 +63,5 @@ export const Result = styled.Text`
     text-align: center;
     padding: 10px;
     border-radius: 16px;
-    margin-bottom: 250px;
+    margin-bottom: 350px;
 `

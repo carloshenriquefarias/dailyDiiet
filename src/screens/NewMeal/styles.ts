@@ -6,6 +6,12 @@ export const Container = styled.View`
     border-radius: 6px; 
 `;
 
+export const SubContainer = styled.View`
+    flex: 1;  
+    border-radius: 6px;
+    margin: 0 20px;
+`;
+
 export const ContentInput = styled.View`
    /* flex-direction: row;
    margin: 20px;   */
