@@ -8,10 +8,10 @@ export const Container = styled.View`
 
 export const Message = styled.Text`
   ${({theme}) => css`
-    font-size: ${theme.FONTS.SIZE.SM}px;
+    font-size: ${theme.FONTS.SIZE.MD}px;
     font-family: ${theme.FONTS.FAMILY.REGULAR};
-    color: ${theme.COLORS.BASE.GRAY_300};
+    color: ${theme.COLORS.BASE.GRAY_700};
   `};
   text-align: center;
-  
+  margin-top: 100px
 `;
