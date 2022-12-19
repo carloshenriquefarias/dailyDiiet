@@ -12,8 +12,8 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Nave
 import {useState, useEffect, useCallback} from 'react'
 import { FlatList, Alert} from 'react-native';
 
-// import { AppError } from '@utils/AppError';
-// import { mealCreate } from '@storage/meals/mealsCreate';
+import { AppError } from '@utils/AppError';
+import { mealCreate } from '@storage/meals/mealsCreate';
 
 type RootParamList = {
     home: undefined;
@@ -28,31 +28,31 @@ export function NewMeal(){
     
     const navigation = useNavigation()
     const [meal, setMeal] = useState('')
-    const [informations, setInformations] = useState('')
+    // const [informations, setInformations] = useState('')
 
-    // async function handleNewMeal(){
-    //     try {
-    //         if(meal.length === 0){ //Trim nao deixa caracteres no input
-    //             Alert.alert('Nova Refeição', 'Informe o nome da refeição') 
-    //         }
+    async function handleNewMeal(){
+        try {
+            if(meal.length === 0){ //Trim nao deixa caracteres no input
+                Alert.alert('Nova Refeição', 'Informe o nome da refeição') 
+            }
 
-    //         await mealCreate(meal);
-    //         // navigation.navigate('players', {group})
-    //         navigation.navigate('home')
+            await mealCreate(meal);
+            // navigation.navigate('players', {group})
+            navigation.navigate('home')
 
-    //     } catch (error) {
-    //         if (error instanceof AppError){
-    //             Alert.alert('Nova Refeição', error.message)
-    //           } else {
-    //           Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
+        } catch (error) {
+            if (error instanceof AppError){
+                Alert.alert('Nova Refeição', error.message)
+              } else {
+              Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
 
-    //         }
-    //     }        
-    // }   
+            }
+        }        
+    }   
 
-    // function handleNew(){
-    //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
-    // }
+    function handleNew(){
+        navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
+    }
 
     return(
         <Container>                     
@@ -108,7 +108,7 @@ export function NewMeal(){
                 <Button
                     title="Cadastrar Refeição"
                     type='PRIMARY'
-                    // onPress={handleNewMeal}
+                    onPress={handleNewMeal}
                     // style={{marginRight: 20}} //VER DEPOIS
                 /> 
             </SubContainer>              
