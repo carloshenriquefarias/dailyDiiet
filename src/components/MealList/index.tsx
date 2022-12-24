@@ -1,64 +1,133 @@
+// import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
+// import { TouchableOpacityProps, Text } from "react-native";
+// import { Ball } from '@components/Ball';
+// import { useState } from 'react';
+
+// type Props = TouchableOpacityProps & {
+//     date?: string;
+//     hour?: string;
+//     title?: string;      
+//     mealsGroup: Group
+// }
+
+// type Group = {
+//     id: number,
+//     data : string
+//     refeicoes: MealsItens[]
+// }
+
+// type MealsItens = {
+//     hora: string;
+//     description: string;
+// }
+
+// export function MealList({date, hour, title, mealsGroup }: Props ){
+    
+//     return(
+//         <Container>
+          
+//             <Date>
+//                 {mealsGroup.data}
+//             </Date>
+          
+//             {/* {mealsGroup.refeicoes.map((item: MealsItens) => {
+//                 return (
+//                     <SubContainer>  
+
+//                         <Content>
+                            
+//                             <SubContent>
+
+//                                 <Hour>
+//                                     {item.hora}
+//                                 </Hour>
+
+//                                 <Divider>
+//                                     |
+//                                 </Divider>
+
+//                                 <Title>
+//                                     {item.description}
+//                                 </Title>
+
+//                             </SubContent>                    
+
+//                             <Ball/>
+                            
+//                         </Content> 
+
+//                     </SubContainer>
+//                 )
+//             })} */}        
+            
+
+//         </Container>
+//     );
+// }
+
+
+
 import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
 import { TouchableOpacityProps, Text } from "react-native";
 import { Ball } from '@components/Ball';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = TouchableOpacityProps & {
     date?: string;
     hour?: string;
-    title?: string;      
-    mealsGroup: Group
+    description?: string;      
+    // mealsGroup: Group
 }
 
-type Group = {
-    id: number,
-    data : string
-    refeicoes: MealsItens[]
-}
+// type Group = {
+//     id: number,
+//     data : string
+//     refeicoes: MealsItens[]
+// }
 
-type MealsItens = {                                
-    hora: string;
-    description: string;
-           
-}
+// type MealsItens = {
+//     hora: string;
+//     description: string;
+// }
 
-export function MealList({date, hour, title, mealsGroup }: Props ){
+export function MealList({ meals  }: Props ){
+  
     return(
         <Container>
 
+           
             <Date>
-                {mealsGroup.data}
-            </Date>
+                {meals.title}
+            </Date> 
+          
+            <SubContainer>  
 
-            {mealsGroup.refeicoes.map((item: MealsItens) => {
-                return (
-                    <SubContainer>  
+                <Content>
+                    
+                    <SubContent>
 
-                        <Content>
-                            
-                            <SubContent>
+                        <Hour>
+                            {meals.hour}
+                        </Hour>
 
-                                <Hour>
-                                    {item.hora}
-                                </Hour>
+                        <Divider>
+                            |
+                        </Divider>
 
-                                <Divider>
-                                    |
-                                </Divider>
+                        <Title>
+                            {meals.description}
+                        </Title>
 
-                                <Title>
-                                    {item.description}
-                                </Title>
+                    </SubContent>                    
 
-                            </SubContent>                    
+                    <Ball/>
+                    
+                </Content> 
 
-                            <Ball/>
-                            
-                        </Content> 
-
-                    </SubContainer>
-                )
-            })}    
+            </SubContainer>
+            
+                    
+            
 
         </Container>
     );
