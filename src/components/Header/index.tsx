@@ -1,29 +1,39 @@
-import {Containers, Container, Content, Icon, ContentTitle, Person, Title } from './styles';
+import {ContainerGlobal, Container, Content, Icon, ContentTitle, Person, Title } from './styles';
+// import { Image} from "react-native";
 
-export function Header (){
+export function Header (){    
+
     return(
-        <Container>
-            <Containers>
+        <ContainerGlobal>
+            
+            <Container>
+
                 <Content>
+
                     <Icon /> 
+
                     <ContentTitle>
+
                         <Title>
                             Daily
                         </Title>
+
                         <Title>
                             Diet
                         </Title>
+
                     </ContentTitle>
+
                 </Content>
-                {/* <Person /> */}
-            </Containers>
+                
+            </Container>
             
-            <>
-                <Person/>
+            <>                
+                <Person/>             
             </>
            
             
-        </Container>
+        </ContainerGlobal>
         
         
     )

@@ -1,12 +1,14 @@
 import { Container, ContentInput, HeaderButtonHalf, MiniContainer, SubContainer } from './styles';
+
 import { NewMealHeader } from '@components/NewMealHeader';
-// import { Subtitle } from '@components/Subtitle';
 import { InfoStatistics } from '@components/InfoStatistics';
 import { Input } from '@components/Input';
 import { InputDescription } from '@components/InputDescription';
 import { InputHalf } from '@components/InputHalf';
 import { Button } from '@components/Button';
 import { ButtonHalf } from '@components/ButtonHalf';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import DatePicker from 'react-native-datepicker'
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import {useState, useEffect, useCallback} from 'react'
@@ -14,30 +16,69 @@ import { FlatList, Alert} from 'react-native';
 
 import { AppError } from '@utils/AppError';
 import { mealCreate } from '@storage/meals/mealsCreate';
-
-type RootParamList = {
-    home: undefined;
-    newmeal: undefined;
-    statisticspainel: undefined;
-    result: {
-      newmeal: string;
-    }
-}
+import { mealsGetAll } from '@storage/meals/mealsGetAll';
+import { MEAL_COLLECTION } from '@storage/storageConfig';
+// type RootParamList = {
+//     home: undefined;
+//     newmeal: undefined;
+//     statisticspainel: undefined;
+//     meal: undefined;
+//     result: {
+//       newmeal: string;
+//     }
+// }
 
 export function NewMeal(){   
     
     const navigation = useNavigation()
     const [meal, setMeal] = useState('')
-    // const [informations, setInformations] = useState('')
+    const [description, setDescription] = useState('')
+    const [date, setDate] = useState('')
+    const [hour, setHour] = useState('')    
 
     async function handleNewMeal(){
         try {
-            if(meal.length === 0){ //Trim nao deixa caracteres no input
+            if(meal.trim().length === 0){ //Trim nao deixa caracteres no input
                 Alert.alert('Nova Refeição', 'Informe o nome da refeição') 
             }
 
-            await mealCreate(meal);
-            // navigation.navigate('players', {group})
+             //fazer depois 
+            // [ ] Colocar validacao dos campos
+            // [ ] Limpar os campos do formularios depois de cadastrado
+
+            const storageData = await mealsGetAll();
+
+            const dataByDate = storageData.find(
+                (item) => item.title === date
+            );
+
+            const newData = {
+                description: description,
+                hour: hour,
+                meal: meal,
+            }
+
+          
+            if (dataByDate) {
+                dataByDate.data = [...dataByDate.data, newData]
+       
+                await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storageData))
+            } else {
+                const formdata = {
+                    title: date,
+                    data: [{
+                        description: description,
+                        hour: hour,
+                        meal: meal,
+                    }]
+                }
+                
+        
+                await mealCreate(formdata);   
+            }
+
+
+
             navigation.navigate('home')
 
         } catch (error) {
@@ -45,14 +86,13 @@ export function NewMeal(){
                 Alert.alert('Nova Refeição', error.message)
               } else {
               Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
-
             }
         }        
-    }   
-
-    function handleNew(){
-        navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
-    }
+    }  
+  
+    // function handleNew(){
+    //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
+    // }
 
     return(
         <Container>                     
@@ -67,22 +107,20 @@ export function NewMeal(){
             <InputDescription
                 placeholder='Descreva o seu alimento'
                 title='Descrição da refeição'
-                onChangeText={setMeal}
+                onChangeText={setDescription}
             />
 
             <ContentInput>
                 <InputHalf
                     placeholder='Data'
                     title='Data' 
-                    onChangeText={setMeal} //Armazenar os dados de uma tela pra outra                   
-                    // type='datetime'
-                    // options={{ format: 'DD/MM/YYYY' }}                    
-                    value={meal}
+                    onChangeText={setDate} //Armazenar os dados de uma tela pra outra                   
+                    // value={meal}
                 />
                 <InputHalf
                     placeholder='Hora'
                     title='Hora'
-                    onChangeText={setMeal} //Armazenar os dados de uma tela pra outra
+                    onChangeText={setHour} //Armazenar os dados de uma tela pra outra
                     // type='datetime'
                     // options={{ format: 'HH:mm' }}
                     // value={meal.data[0].hour}
