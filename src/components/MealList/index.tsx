@@ -95,10 +95,9 @@ export function MealList({ meals  }: Props ){
     return(
         <Container>
 
-           
-            <Date>
+            {/* <Date>
                 {meals.title}
-            </Date> 
+            </Date>  */}
           
             <SubContainer>  
 
@@ -124,10 +123,7 @@ export function MealList({ meals  }: Props ){
                     
                 </Content> 
 
-            </SubContainer>
-            
-                    
-            
+            </SubContainer>            
 
         </Container>
     );

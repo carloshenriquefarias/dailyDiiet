@@ -4,10 +4,11 @@ type Props = {
     type?: BallStyleProps;
   }
 
-export function Ball({type}: Props ){
+export function Ball({type, ...rest}: Props ){
     return(
         <Icon
-            type='PRIMARY'
+            type='SECONDARY'
+            // isActive={true}
         />
     );
 }

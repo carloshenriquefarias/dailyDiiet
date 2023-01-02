@@ -4,7 +4,7 @@ import { Ball} from '@components/Ball'
 
 type Props = TouchableOpacityProps & {
   title: string;
-  type?: ButtonTypeStyleProps;
+  type?: ButtonTypeStyleProps; 
 }
 
 export function ButtonHalf({ title, type = 'PRIMARY', ...rest }: Props) {

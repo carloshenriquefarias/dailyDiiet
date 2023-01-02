@@ -8,6 +8,14 @@ import { InputHalf } from '@components/InputHalf';
 import { Button } from '@components/Button';
 import { ButtonHalf } from '@components/ButtonHalf';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {
+    DateTimePickerAndroid,
+    DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+
+import { formatDate } from '@utils/formatDate';
+
 // import DatePicker from 'react-native-datepicker'
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
@@ -18,6 +26,7 @@ import { AppError } from '@utils/AppError';
 import { mealCreate } from '@storage/meals/mealsCreate';
 import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
+
 // type RootParamList = {
 //     home: undefined;
 //     newmeal: undefined;
@@ -34,7 +43,9 @@ export function NewMeal(){
     const [meal, setMeal] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
-    const [hour, setHour] = useState('')    
+    const [hour, setHour] = useState('')  
+    
+    const [newDate, setNewDate] = useState<number>(new Date().getTime());
 
     async function handleNewMeal(){
         try {
@@ -71,8 +82,7 @@ export function NewMeal(){
                         hour: hour,
                         meal: meal,
                     }]
-                }
-                
+                }              
         
                 await mealCreate(formdata);   
             }
@@ -94,6 +104,19 @@ export function NewMeal(){
     //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
     // }
 
+    function onChange(event: DateTimePickerEvent, selectedDate?: Date) {
+        const formatedDate = selectedDate!.getTime();
+        setNewDate(formatedDate);
+    }
+
+    function showMode(mode: 'date' | 'time') {
+        DateTimePickerAndroid.open({
+            value: new Date(newDate),
+            onChange,
+            mode,
+            is24Hour: true,
+        });
+}
     return(
         <Container>                     
             <NewMealHeader
@@ -115,15 +138,16 @@ export function NewMeal(){
                     placeholder='Data'
                     title='Data' 
                     onChangeText={setDate} //Armazenar os dados de uma tela pra outra                   
-                    // value={meal}
+                    // value={meal}                 
+                    onPressIn={() => showMode('date')}
+                    defaultValue={formatDate(newDate, 'date')}
                 />
                 <InputHalf
                     placeholder='Hora'
                     title='Hora'
-                    onChangeText={setHour} //Armazenar os dados de uma tela pra outra
-                    // type='datetime'
-                    // options={{ format: 'HH:mm' }}
-                    // value={meal.data[0].hour}
+                    onChangeText={setHour} //Armazenar os dados de uma tela pra outra            
+                    onPressIn={() => showMode('time')}
+                    defaultValue={formatDate(newDate, 'time')}                   
                 />
             </ContentInput>
             
@@ -146,8 +170,7 @@ export function NewMeal(){
                 <Button
                     title="Cadastrar Refeição"
                     type='PRIMARY'
-                    onPress={handleNewMeal}
-                    // style={{marginRight: 20}} //VER DEPOIS
+                    onPress={handleNewMeal}                               
                 /> 
             </SubContainer>              
 
