@@ -1,5 +1,8 @@
 import { Container } from './styles';
 import React from "react";
+import { Camera, Plus } from 'phosphor-react-native';
+
+import { useTheme } from 'styled-components/native';
 
 import { Header } from '@components/Header';
 import { Statistics } from '@components/Statistics';
@@ -111,7 +114,7 @@ export function Home(){
     async function fetchMeal(){ //Busca os grupos ja cadastrados (CARREGAMENTO DOS GRUPOS)
     
         try {
-            //AsyncStorage.clear() //limpa os dados
+            // AsyncStorage.clear() //limpa os dados
             setIsLoading(true)
 
             const data = await mealsGetAll()
@@ -178,6 +181,9 @@ export function Home(){
                 title="Nova Refeição"
                 type='PRIMARY'
                 onPress={handleNewMeal}
+                icon={<Plus size={18} 
+                // color={COLORS.BASE.LIGHT} 
+                />}
             />    
         
             {/* { isLoading ? <Loading/> :
@@ -216,7 +222,7 @@ export function Home(){
                         {section.title}
                     </Text>
                     )}                    
-                    ListEmptyComponent={() => <ListEmpty message='Que tal cadastrar a primeira refeição?'/>}
+                    ListEmptyComponent={() => <ListEmpty message='Está com fome? Que tal cadastrar a primeira refeição?'/>}
                     showsVerticalScrollIndicator={false}
                 />  
             }    

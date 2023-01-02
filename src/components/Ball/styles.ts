@@ -2,7 +2,7 @@ import styled, {css} from "styled-components/native";
 
 export type BallStyleProps = {
     type: 'PRIMARY' | 'SECONDARY';
-    // isActive: false;
+    isActive?: boolean;
 }
 
 type Props = BallStyleProps;

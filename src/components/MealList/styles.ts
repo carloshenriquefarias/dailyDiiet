@@ -32,7 +32,7 @@ export const Content = styled(TouchableOpacity)`
     align-items: center;
     justify-content: space-between;
     padding: 12px;
-    margin-bottom: 10px;    
+    /* margin-bottom: 5px;     */
     border: 1px solid ${({ theme }) => theme.COLORS.BASE.GRAY_300};
 `;
 
