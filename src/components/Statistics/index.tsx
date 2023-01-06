@@ -1,29 +1,27 @@
-import { Container, Title, IconHeading, Text, StatisticsButtonTypeStyleProps, SubContainer} from "./styles";
-import { TouchableOpacityProps } from "react-native";
+import { TouchableOpacityProps } from 'react-native';
+import { Container, StyledIcon, StyledNumber, StyledText } from './styles';
+import { DietVariant } from '@screens/Home';
 
 type Props = TouchableOpacityProps & {
-  title: string; 
-  text: string; 
-  type?: StatisticsButtonTypeStyleProps;
-}
+  number: string;
+  text: string;
+  variant?: DietVariant;
+};
 
-export function Statistics ({ title, text, type = 'PRIMARY', ...rest }: Props){
-
+export function Statistics({ number, text, variant, ...rest }: Props) {
   return (
-    <Container type="PRIMARY">
-      
-      <SubContainer>
-        <IconHeading/>
-      </SubContainer>            
-      
-      <Title>
-        {title}        
-      </Title>
+    <Container variant={variant} {...rest}>
 
-      <Text>
-        {text}        
-      </Text>
+      {variant && <StyledIcon variant={variant} />}
+
+      <StyledNumber>
+        {number}        
+      </StyledNumber>
+
+      <StyledText>
+        {text}
+      </StyledText>
 
     </Container>
-  )
+  );
 }

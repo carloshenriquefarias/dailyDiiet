@@ -24,4 +24,13 @@ export const Title = styled.TextInput`
         color: ${theme.COLORS.BASE.GRAY_700};
         border: 1px solid ${theme.COLORS.BASE.GRAY_500};
     `};
-`
+`;
+
+export const Error = styled.Text`
+    ${({ theme }) => css`
+        font-family: ${theme.FONTS.FAMILY.REGULAR};
+        font-size: ${theme.FONTS.SIZE.SM}px;
+        color: ${theme.COLORS.STYLES.SECONDARY_DARK};
+        /* border: 1px solid ${theme.COLORS.BASE.GRAY_500}; */
+    `};   
+`;

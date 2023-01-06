@@ -7,25 +7,37 @@ import { InputDescription } from '@components/InputDescription';
 import { InputHalf } from '@components/InputHalf';
 import { Button } from '@components/Button';
 import { ButtonHalf } from '@components/ButtonHalf';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {
-    DateTimePickerAndroid,
-    DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
+import { DateTimePickerAndroid, DateTimePickerEvent} from '@react-native-community/datetimepicker';
 import { formatDate } from '@utils/formatDate';
-
-// import DatePicker from 'react-native-datepicker'
+import { AppError } from '@utils/AppError';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
-import {useState, useEffect, useCallback} from 'react'
-import { FlatList, Alert} from 'react-native';
+import { useState, useId, useEffect, useCallback} from 'react'
+import { Alert} from 'react-native';
 
-import { AppError } from '@utils/AppError';
 import { mealCreate } from '@storage/meals/mealsCreate';
 import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// const formSchema = yup.object({
+//     nameMeal: yup.string().required('Informe o nome da refeição.'),
+//     descriptionMeal: yup.string().required('Informe a descrição'),
+//     date: yup.string().required('Informe a data'),
+//     hour: yup.string().required('Informe a hora'),   
+// });
+
+// type FormDataProps = {
+//     nameMeal: string;
+//     descriptionMeal: string;
+//     date: string;
+//     hour: string;
+// };  
 
 // type RootParamList = {
 //     home: undefined;
@@ -37,23 +49,54 @@ import { MEAL_COLLECTION } from '@storage/storageConfig';
 //     }
 // }
 
-export function NewMeal(){   
+export function NewMeal(){  
+    
+    // const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
+    //     resolver: yupResolver(formSchema),
+    // });
+
+    // const {errors} = formState
     
     const navigation = useNavigation()
     const [meal, setMeal] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
-    const [hour, setHour] = useState('')  
+    const [hour, setHour] = useState('')    
+    
+    const [buttonSelected, setButtonSelected] = useState('')  
     
     const [newDate, setNewDate] = useState<number>(new Date().getTime());
+    const [dietSelected, setDietSelected] = useState <string> ();
+    const mealId = useId();
+
+    function handleDietSelected(option: string) {
+        setDietSelected(option);
+    }
 
     async function handleNewMeal(){
         try {
-            if(meal.trim().length === 0){ //Trim nao deixa caracteres no input
-                Alert.alert('Nova Refeição', 'Informe o nome da refeição') 
+
+            if(meal.trim().length === 0 || description.trim().length === 0){ //Trim nao deixa caracteres no input
+                Alert.alert('Nova Refeição', 'Informe o nome da refeição e sua descrição') 
             }
 
-             //fazer depois 
+            // if (!dietSelected) {
+            //     return Alert.alert(
+            //       'ATENÇÃO!',
+            //       'Por favor, escolha se está dentro ou fora da dieta.'
+            //     );
+            // }
+
+            const newData = {
+                id: mealId,
+                meal: meal,
+                description: description,
+                date: date,
+                hour: hour,
+                diet: dietSelected === 'Sim' ? true : false,
+            }            
+
+            //fazer depois 
             // [ ] Colocar validacao dos campos
             // [ ] Limpar os campos do formularios depois de cadastrado
 
@@ -63,46 +106,58 @@ export function NewMeal(){
                 (item) => item.title === date
             );
 
-            const newData = {
-                description: description,
-                hour: hour,
-                meal: meal,
-            }
-
-          
             if (dataByDate) {
-                dataByDate.data = [...dataByDate.data, newData]
-       
+                dataByDate.data = [...dataByDate.data, newData]       
                 await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storageData))
+                
             } else {
+                // const formdata = {
+                //     title: date,
+                //     data: [{
+                //         description: description,
+                //         hour: hour,
+                //         meal: meal,
+                //     }]
+                // } 
+                
                 const formdata = {
                     title: date,
                     data: [{
-                        description: description,
-                        hour: hour,
+                        id: mealId,
                         meal: meal,
+                        description: description,
+                        date: date,
+                        hour: hour,
+                        diet: dietSelected === 'Sim' ? true : false,
                     }]
-                }              
+                }   
         
                 await mealCreate(formdata);   
             }
 
-
-
-            navigation.navigate('home')
-
+            // navigation.navigate('home')
+           
         } catch (error) {
             if (error instanceof AppError){
                 Alert.alert('Nova Refeição', error.message)
               } else {
               Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
             }
-        }        
+        } 
+        
+        navigation.navigate('result', 
+        { variant: dietSelected === 'Sim' 
+        ? 'inDiet' : 'outDiet',});
+
     }  
   
     // function handleNew(){
     //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
     // }
+
+    function handleButtonSelected(type: 'Sim' | 'Não'){
+        setButtonSelected(type)
+    }
 
     function onChange(event: DateTimePickerEvent, selectedDate?: Date) {
         const formatedDate = selectedDate!.getTime();
@@ -116,17 +171,35 @@ export function NewMeal(){
             mode,
             is24Hour: true,
         });
-}
+    }
+
     return(
+
         <Container>                     
             <NewMealHeader
                 title='Nova Refeição'
-            />            
+            />  
+
+            {/* <Controller 
+                control={control}
+                name="nameMeal"
+                render={({ field: { onChange, value } }) => (
+                <Input 
+                    placeholder='Digite seu alimento'
+                    title='Nome da refeição'
+                    onChangeText={onChange}                    
+                    value={value}
+                    errorMessage={errors.nameMeal?.message}
+                />
+                )}
+            /> */}
+
             <Input
                 placeholder='Digite seu alimento'
                 title='Nome da refeição'
                 onChangeText={setMeal}
             />
+
             <InputDescription
                 placeholder='Descreva o seu alimento'
                 title='Descrição da refeição'
@@ -158,11 +231,17 @@ export function NewMeal(){
             <MiniContainer>                
                 <ButtonHalf                    
                     title='Sim'
+                    isActive={buttonSelected === 'Sim'}
                     type='PRIMARY'
+                    onPress={() => handleButtonSelected('Sim')}   
+                    // onSubmitEditing={handleSubmit(handleNewMeal)} //Usar o botao do teclado
+                    // returnKeyType="send"
                 />
                 <ButtonHalf                    
                     title='Não'
-                    type='PRIMARY'
+                    isActive={buttonSelected === 'Não'}
+                    type='SECONDARY'
+                    onPress={() => handleButtonSelected('Não')}   
                 />
             </MiniContainer>
 

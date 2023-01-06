@@ -1,60 +1,53 @@
-import { Container, Icon } from './styles';
-import { useNavigation, useRoute } from '@react-navigation/native'; //Navegação
-// import { IsInDietTypeProps } from 'src/@types/meal';
-
+import { RootStackScreenProps } from 'src/@types/navigation';
+import { Container, Heading, Message, Strong, StyledImage, SubHeading } from './styles';
 import { Button } from '@components/Button';
-import { Feedback } from '@components/Feedback';
 
-import {PositiveIllustration} from './@assets/positive/Illustration.png'
+import PositiveIllustration from '@assets/positive/Illustration.png'
 import NegativeIllustration from '@assets/negative/Illustration.png'
 
-// type RouteParams = {
-//     isInDiet: IsInDietTypeProps;
-// }
+export function Result({ navigation, route }: RootStackScreenProps<'result'>) {
+  const { variant } = route.params;
 
-export function Result(){      
+  function handleGoToHome() {
+    navigation.navigate('home');
+  }
 
-    const navigation = useNavigation();
-    // const route = useRoute();
-    // const { isInDiet } = route.params as RouteParams;
+  return (
+    <Container>
 
-    function handleGoBack() {      
-      navigation.navigate('home'); 
-    }
+        <Heading variant={variant}>
+            {variant === 'inDiet' ? 'Continue assim!' : 'Que pena!'}
+        </Heading>
+      
+        {variant === 'inDiet' ? (
+            <SubHeading>
+                <Message>
+                    Você continua
+                        <Strong> dentro da dieta.</Strong> 
+                    Muito bem!
+                </Message>            
+            </SubHeading>
 
-    function handleGoMeal() {      
-        navigation.navigate('meal'); 
-    }
+        ) : (
+            <SubHeading>
+                <Message>
+                    Você
+                        <Strong> saiu da dieta </Strong> 
+                    dessa vez, mas continue se esforçando e não desista!
+                </Message>
+            </SubHeading>
+        )}
 
-    return(
-        <Container>       
-            
-            {/* <Feedback
-                title= { isInDiet ? 'Continue assim!' : 'Que pena!' }
-                isInDiet={isInDiet}
-            /> */}
+        <StyledImage source={NegativeIllustration}/>
 
-            {/* <Feedback/> */}
+        {/* <StyledImage 
+            source={variant === 'inDiet' ? 
+            PositiveIllustration : 
+            NegativeIllustration} 
+        /> */}
 
-            {/* { isInDiet ?  */}
-                {/* <Icon source={PositiveIllustration} /> :  */}
-                <Icon source={NegativeIllustration} /> 
-            {/* } */}
+        <Button title='Ir para a página inicial' onPress={handleGoToHome} />
 
-            <Button
-                title="Ir para pagina inicial"
-                type='PRIMARY'
-                style={{ width: 240 }}
-                onPress={handleGoBack}                
-            /> 
-
-            <Button
-                title="Ir para pagina de editar"
-                type='PRIMARY'
-                style={{ width: 240 }}
-                onPress={handleGoMeal}                
-            />   
-
-        </Container>
-    );
+    </Container>
+  );
 }

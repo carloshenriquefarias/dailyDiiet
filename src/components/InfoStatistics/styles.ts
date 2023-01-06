@@ -1,61 +1,42 @@
-import styled, { css } from "styled-components/native";
+import { DietVariant } from '@screens/Home';
+import styled, { css } from 'styled-components/native';
 
-export type ButtonHalfStyleProps = {
-  type: 'PRIMARY' | 'SECONDARY';
-  // isActive: false;
-}
+type Props = {
+  variant?: DietVariant;
+};
 
-type Props = ButtonHalfStyleProps;
-
-export const Container = styled.View`
-  flex: 1;
-  min-height: 100px;
-  max-height: 100px;
-  width: 95%;
-  margin: 10px; 
-
-  background-color: ${({ theme }) =>    
-    theme.COLORS.BASE.GRAY_200};
-  border-radius: 6px;
-  
-  justify-content: center;
+export const Container = styled.View<Props>`
+  ${({ theme, variant }) => css`
+    background-color: ${variant
+      ? variant === 'inDiet'
+      ? theme.COLORS.STYLES.PRIMARY_LIGHT
+      : theme.COLORS.STYLES.SECONDARY_LIGHT
+    : theme.COLORS.BASE.GRAY_300}
+    flex: ${!!variant ? 1 : 'none'};
+    margin-left: ${variant === 'outDiet' ? '12px' : 0};
+  `}
+  padding: 16px;
+  border-radius: 8px;
   align-items: center;
-`;
-
-export const Informations = styled.View<Props>`
-  flex: 1;
-  min-height: 100px;
-  max-height: 100px;
-  width: 45%;
-  margin: 5px;  
-
-  background-color: ${({ theme, type }) => type === 'PRIMARY' ?
-    theme.COLORS.STYLES.PRIMARY_LIGHT : theme.COLORS.STYLES.SECONDARY_LIGHT
-  };  
-  border-radius: 6px;  
   justify-content: center;
-  align-items: center;
+  margin-bottom: 12px;
 `;
 
-export const Content = styled.View`
-  flex-direction: row;
-`;
-
-export const Title = styled.Text`
+export const StyledNumber = styled.Text`
   ${({ theme }) => css`
-    font-size: 30px;
-    color: ${theme.COLORS.BASE.DARK};
+    font-size: 25px;
     font-family: ${theme.FONTS.FAMILY.BOLD};
-  `};
+    /* font-size: ${theme.FONTS.SIZE.MD}; */
+    color: ${theme.COLORS.BASE.GRAY_600};
+  `}
+  margin-bottom:8px
 `;
 
-export const Text = styled.Text`
-  text-align: center;
+export const StyledText = styled.Text`
   ${({ theme }) => css`
-    font-size: ${theme.FONTS.SIZE.SM}px;
-    color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.REGULAR};
-    /* background-color: ${theme.COLORS.BASE.GRAY_300}; */
-  `};
+    font-size: ${theme.FONTS.SIZE.SM};
+    color: ${theme.COLORS.BASE.GRAY_700};
+  `}
+  text-align: center
 `;
-

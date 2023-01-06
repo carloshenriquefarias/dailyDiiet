@@ -1,56 +1,56 @@
-import styled, { css } from "styled-components/native";
-import { ArrowUpRight } from "phosphor-react-native";
-import { TouchableOpacity } from "react-native";
-
-export type StatisticsButtonTypeStyleProps = 'PRIMARY' | 'SECONDARY';
+import { ArrowUpRight } from 'phosphor-react-native';
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import styled, { css } from 'styled-components/native';
+import { DietVariant } from '@screens/Home';
 
 type Props = {
-  type: StatisticsButtonTypeStyleProps;  
-}
+  variant: DietVariant;
+};
 
 export const Container = styled(TouchableOpacity)<Props>`
-  flex: 1;
+  width: 100%;
   min-height: 120px;
   max-height: 120px;
-  width: 100%;
-
-  background-color: ${({ theme, type }) => 
-    type === 'PRIMARY' ? theme.COLORS.STYLES.PRIMARY_LIGHT : 
-  theme.COLORS.STYLES.SECONDARY_LIGHT};  
-  border-radius: 6px;   
+  padding: 20px 16px;
+  background-color: ${({ theme, variant }) =>
+    variant
+      ? variant === 'inDiet'
+        ? theme.COLORS.STYLES.PRIMARY_LIGHT
+        : theme.COLORS.STYLES.SECONDARY_LIGHT
+      : theme.COLORS.BASE.GRAY_300
+  };
+  border-radius: 8px;
+  align-items: center;
+  position: relative;
 `;
 
-export const SubContainer = styled.View`  
-  justify-content: center;
-  align-items: flex-end;
-  margin-right: 20px;
-  margin-top: 10px;
+export const StyledIcon = styled(ArrowUpRight).attrs<Props> (
+  ({ theme, variant }) => ({
+    size: 24,
+    color:
+      variant === 'inDiet'
+      ? theme.COLORS.STYLES.PRIMARY_DARK
+      : theme.COLORS.STYLES.SECONDARY_DARK
+  })
+) <Props>`
+  position: absolute;
+  top: 8px;
+  right: 8px;
 `;
 
-export const Title = styled.Text`
+export const StyledNumber = styled.Text`
   ${({ theme }) => css`
     font-size: 40px;
-    color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.BOLD};
-  `};
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    /* font-size: ${theme.FONTS.SIZE.MD}; */
+    color: ${theme.COLORS.BASE.GRAY_600};
+  `}
 `;
 
-export const Text = styled.Text`
-  text-align: center;
+export const StyledText = styled.Text`
   ${({ theme }) => css`
-    font-size: ${theme.FONTS.SIZE.SM}px;
-    color: ${theme.COLORS.BASE.DARK};
     font-family: ${theme.FONTS.FAMILY.REGULAR};
-  `};
-  /* justify-content: center; */
-  text-align: center;
+    font-size: ${theme.FONTS.SIZE.MD};
+    color: ${theme.COLORS.BASE.GRAY_700};
+  `}
 `;
-
-export const IconHeading = styled(ArrowUpRight).attrs(({ theme }) => ({
-  size: 20,    
-  color: theme.COLORS.STYLES.PRIMARY_DARK,  
-}))``;
-

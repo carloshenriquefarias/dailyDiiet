@@ -1,19 +1,18 @@
 import { TouchableOpacityProps } from "react-native";
 import { ButtonTypeStyleProps, Container, Title} from "./styles";
-import { Ball} from '@components/Ball'
+// import { Ball} from '@components/Ball'
 
-type Props = TouchableOpacityProps & {
+type Props = TouchableOpacityProps & ButtonTypeStyleProps & {
   title: string;
-  type?: ButtonTypeStyleProps; 
 }
 
-export function ButtonHalf({ title, type = 'PRIMARY', ...rest }: Props) {
-  return (     
-        
-    <Container type={type} {...rest}>  
-
-      <Ball/> 
-
+export function ButtonHalf({ title, isActive = false, ...rest }: Props) {
+  return (       
+    <Container 
+      isActive={isActive} 
+      {...rest} 
+    > 
+      {/* <Ball/>  */}
       <Title>
         {title}
       </Title> 

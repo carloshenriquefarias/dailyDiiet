@@ -4,6 +4,7 @@ import {useTheme} from "styled-components/native";
 
 type Props = TextInputProps &  {
     title: string;
+    // errorMessage?: string | null;
 }
 
 export function Input({ title, ...rest }: Props){
