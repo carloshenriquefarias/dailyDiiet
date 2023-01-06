@@ -1,16 +1,13 @@
 import styled, {css} from "styled-components/native";
+import { DietVariant } from '@screens/Home';
 // import {UsersThree } from 'phosphor-react-native';
 import { TouchableOpacity } from "react-native";
 
-export const Container = styled(TouchableOpacity)`
-    /* width: 100%;
-    height: 90px;
-    background-color: ${({theme}) => theme.COLORS.BASE.LIGHT};
-    border-radius: 6px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 24px; */
+type Props = {
+    variant: DietVariant;
+};
+
+export const Container = styled(TouchableOpacity)` 
     margin-top: 10px;
 `;
 
@@ -79,6 +76,14 @@ export const Divider = styled.Text`
         color: ${ theme.COLORS.BASE.GRAY_500};
     `}  
     margin-right: 10px;
+`;
+
+export const Icon = styled.View<Props>`
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background-color: ${({ theme, variant }) =>
+    variant === 'inDiet' ? theme.COLORS.STYLES.PRIMARY_DARK : theme.COLORS.STYLES.SECONDARY_DARK};
 `;
 
 // export const Icon = styled(UsersThree).attrs(({theme}) => ({

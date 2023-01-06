@@ -14,6 +14,8 @@ import { Loading } from '@components/Loading';
 
 import { FlatList, Alert, SectionList, Text } from 'react-native';
 
+import { formatPercentage } from '@utils/formatPercentage';
+
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState, useEffect, useCallback} from 'react'
@@ -29,6 +31,23 @@ type RootParamList = {
     result: {
       newmeal: string;
     }
+}
+
+//Colocar estes dados no DTO
+
+export type DietVariant = 'inDiet' | 'outDiet';
+
+export type MealData = {
+  id: string;
+  title: string;
+  date: number;
+  description: string;
+  diet: boolean;
+};
+
+export type DataProps = {
+  title: string;
+  data: MealData[];
 }
 
 export function Home(){
@@ -61,7 +80,19 @@ export function Home(){
     
     // const [meal, setMeal] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState(true);
-    const navigation = useNavigation()   
+    const navigation = useNavigation()  
+    const { COLORS } = useTheme(); 
+
+    const [diet, setDiet] = useState<DietVariant>('inDiet');
+
+    const totalMealsInDiet = 48
+    const totalMeals = 100
+    const percentageInDiet = totalMealsInDiet / totalMeals;
+    const numberFormattedPercentageInDiet = formatPercentage(
+        totalMealsInDiet,
+        totalMeals
+    );
+
 
     // async function tratarDados(storage: any) {
     //     console.log()
@@ -151,17 +182,34 @@ export function Home(){
         navigation.navigate('newmeal') //Definir os tipos de navegação no @types              
     }
 
-    function handleStatisticsMenu(){       
-        navigation.navigate('statisticspainel')
-    }
+    // function handleStatisticsMenu(){       
+    //     navigation.navigate('statisticspainel')
+    // }
 
     function handleOpenMeal(meal: string){
         navigation.navigate('meal')
     }
 
+    function handleGoToStatisticsScreen() {
+        navigation.navigate('statisticspainel');
+    }
+
+    function handleOpenMealsDetails() { 
+        //Pegando a refeição pelo ID
+        navigation.navigate('meal');
+    }  
+
     useFocusEffect(useCallback(() => { //Listando grupos cadastrados na tela principal
         fetchMeal()
     }, []));
+
+    useEffect(() => {
+        if (percentageInDiet <= 0.5) {
+          setDiet('outDiet');
+        } else {
+          setDiet('inDiet');
+        }
+    }, [percentageInDiet]);
 
     return(
         <Container>
@@ -169,11 +217,11 @@ export function Home(){
             <Header/>
 
             <Statistics
-                title='90,85%'
-                type='PRIMARY'
-                text='das refeições dentro da dieta'               
-                onPress={handleStatisticsMenu}
-            />
+                number={totalMeals > 0 ? numberFormattedPercentageInDiet : '0,00%'}
+                text='das refeições dentro da dieta'
+                onPress={handleGoToStatisticsScreen}
+                variant={diet}
+            />           
 
             <Subtitle/> 
 
@@ -181,9 +229,7 @@ export function Home(){
                 title="Nova Refeição"
                 type='PRIMARY'
                 onPress={handleNewMeal}
-                icon={<Plus size={18} 
-                // color={COLORS.BASE.LIGHT} 
-                />}
+                icon={<Plus size={18} color={COLORS.BASE.LIGHT} />}
             />    
         
             {/* { isLoading ? <Loading/> :
@@ -211,6 +257,7 @@ export function Home(){
                         
                         <MealList
                             meals={item}
+                            // onPress={() => handleOpenMealsDetails(item.id)} 
                             //mealsGroup={item}                      
                             // onPress={handleStatisticsMenu} 
                             // onPress={() => handleOpenMeal(item)}                       

@@ -67,15 +67,17 @@
 
 
 
-import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
+import { Container, Title, Icon, Hour, Content, Divider, SubContainer, SubContent} from './styles';
 import { TouchableOpacityProps, Text } from "react-native";
+import { DietVariant } from '@screens/Home';
 import { Ball } from '@components/Ball';
 import { useEffect, useState } from 'react';
 
 type Props = TouchableOpacityProps & {
     date?: string;
     hour?: string;
-    description?: string;      
+    description?: string;   
+    variant: DietVariant;   
     // mealsGroup: Group
 }
 
@@ -90,7 +92,7 @@ type Props = TouchableOpacityProps & {
 //     description: string;
 // }
 
-export function MealList({ meals  }: Props ){
+export function MealList({ meals, date, hour, description, variant  }: Props ){
   
     return(
         <Container>
@@ -117,9 +119,11 @@ export function MealList({ meals  }: Props ){
                             {meals.description}
                         </Title>
 
-                    </SubContent>                    
+                    </SubContent>  
 
-                    <Ball/>
+                    <Icon variant={variant} />                  
+
+                    {/* <Ball/> */}
                     
                 </Content> 
 

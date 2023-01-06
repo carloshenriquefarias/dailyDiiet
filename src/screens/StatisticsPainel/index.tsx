@@ -1,59 +1,76 @@
-import { Container } from './styles';
-import { HighlightHeader } from '@components/HighlightHeader';
-import { Title } from '@components/Title';
-import { InfoStatistics } from '@components/InfoStatistics';
-import { Button } from '@components/Button';
-// import { ButtonHalf } from '@components/ButtonHalf';
-
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import {useState, useEffect, useCallback} from 'react'
 
-type RootParamList = {
-    home: undefined;
-    newmeal: undefined;
-    statisticspainel: undefined;
-    result: {
-      newmeal: string;
-    }
-}
+import { InfoStatistics } from '@components/InfoStatistics';
+import { formatPercentage } from '@utils/formatPercentage';
+import { RootStackScreenProps } from 'src/@types/navigation';
+import { BoxesContainer, Container, Content, Header, IconContainer,
+  StyledIcon, StyledNumber, StyledText, Title } from './styles';
 
 export function StatisticsPainel(){   
     
-    const navigation = useNavigation()
+    const navigation = useNavigation()     
+
+    const [diet, setDiet] = useState()
+
+    const totalMeals = 100
+    const totalMealsInDiet = 62
+    const totalMealsOutDiet = totalMealsInDiet - totalMeals;
+
+    const formattedPercentageInDiet = formatPercentage(
+        totalMealsInDiet,
+        totalMeals
+    ); 
 
     function handleGoBackHome(){
         navigation.navigate('home') //Definir os tipos de navegação no @types
-    }
+    } 
 
-    function handleGoFeedback(){
-        navigation.navigate('result') //Definir os tipos de navegação no @types
-    }
+    return (
+        <Container variant={diet}>
+            
+            <Header variant={diet}>
+                <IconContainer onPress={handleGoBackHome}>
+                    <StyledIcon variant={diet} />
+                </IconContainer>
 
-    return(
+                <StyledNumber>
+                    {totalMeals > 0 ? formattedPercentageInDiet : '0,00%'}
+                </StyledNumber>
 
-        <>
-            <HighlightHeader
-                title='90,86%'
-                text='das refeições comidas'
-            />
+                <StyledText>
+                    das refeições dentro da dieta
+                </StyledText>
+            </Header>
 
-            <Container>                     
+            <Content>
+                <Title>Estatísticas gerais</Title>
                 
-                <Title/>
+                <InfoStatistics                    
+                    title='Melhor sequencia de pratos dentro da dieta'
+                    value={15}                    
+                />   
 
                 <InfoStatistics                    
-                    title='12'
-                    text='Melhor sequencia de pratos dentro da dieta'
-                />               
+                    title='Melhor sequencia de pratos dentro da dieta'
+                    value={19}  
+                />              
+                
+                <BoxesContainer>
+                    <InfoStatistics
+                        variant='inDiet'
+                        value={totalMealsInDiet}
+                        title='refeições dentro da dieta'
+                    />
+                    <InfoStatistics
+                        variant='outDiet'
+                        value={totalMealsOutDiet}
+                        title='refeições fora da dieta'
+                    />
+                </BoxesContainer>
 
-                <Button
-                    title="Ir para o Feedback"
-                    type='PRIMARY'
-                    onPress={handleGoFeedback}
-                />
-
-            </Container>
-        </>
-        
+            </Content>
+        </Container>
     );
+    
 }
