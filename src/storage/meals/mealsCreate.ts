@@ -7,9 +7,7 @@ import { MEAL_COLLECTION } from '@storage/storageConfig';
 export async function mealCreate(newMeal: string) {
     
   try {
-    const storedMeals = await mealsGetAll();   
-
-
+    const storedMeals = await mealsGetAll();
     const mealAlreadyExists = storedMeals.includes(newMeal); //Verifica se ja existe algo igual na lista
 
     if(mealAlreadyExists) {

@@ -1,5 +1,6 @@
-import styled from "styled-components/native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
     flex: 1;    
@@ -7,3 +8,14 @@ export const Container = styled.View`
     background-color: ${({ theme }) =>      
     theme.COLORS.BASE.LIGHT};
 `;
+
+export const ListHeader = styled.Text`
+  ${({ theme }) => css`
+        font-size: ${theme.FONTS.SIZE.LG}px;
+        font-family: ${ theme.FONTS.FAMILY.BOLD};
+        color: ${ theme.COLORS.BASE.GRAY_100};
+  `}
+  margin-bottom:16px;
+  margin-top: 32px;
+`;
+
