@@ -39,6 +39,21 @@ export const Header = styled.View`
     justify-content: space-between;
 `;
 
+export const ProfileContainer = styled.Pressable`
+  width: 40px;
+  height: 40px;
+  border: 2px solid ${({ theme }) => theme.COLORS.BASE.GRAY_500};
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Profile = styled.Image`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+`;
+
 export const ContentTitle = styled.View``;
 
 export const Icon = styled(ForkKnife).attrs(({ theme }) => ({
@@ -46,6 +61,8 @@ export const Icon = styled(ForkKnife).attrs(({ theme }) => ({
     color: theme.COLORS.BASE.GRAY_700,
     weight: 'bold'
 }))``;
+
+
 
 
 

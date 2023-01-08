@@ -25,20 +25,6 @@ import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const formSchema = yup.object({
-//     nameMeal: yup.string().required('Informe o nome da refeição.'),
-//     descriptionMeal: yup.string().required('Informe a descrição'),
-//     date: yup.string().required('Informe a data'),
-//     hour: yup.string().required('Informe a hora'),   
-// });
-
-// type FormDataProps = {
-//     nameMeal: string;
-//     descriptionMeal: string;
-//     date: string;
-//     hour: string;
-// };  
-
 // type RootParamList = {
 //     home: undefined;
 //     newmeal: undefined;
@@ -49,13 +35,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //     }
 // }
 
-export function NewMeal(){  
-    
-    // const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
-    //     resolver: yupResolver(formSchema),
-    // });
-
-    // const {errors} = formState
+export function NewMeal(){   
     
     const navigation = useNavigation()
     const [meal, setMeal] = useState('')
@@ -73,83 +53,126 @@ export function NewMeal(){
         setDietSelected(option);
     }
 
-    async function handleNewMeal(){
+    async function handleNewMeal() {
+        //Verificação
+        if (meal.trim().length === 0 || description.trim().length === 0) {
+          return Alert.alert('Nova Refeição', 'Preencha o nome e a descrição.');
+        }
+
+        // if (!dietSelected) {
+        //   return Alert.alert(
+        //     'Nova Refeição',
+        //     'Selecione se está dentro ou fora da dieta.'
+        //   );
+        // }
+
+        //Dados dos inputs
+        const newMeal = {
+          id: mealId,
+          title: meal,
+          description: description,
+          date: date,
+          hour: hour,          
+          diet: dietSelected === 'Sim' ? true : false,
+        };
+    
+        //Crie e armazene a função do A.Storage
         try {
+          await mealCreate(newMeal);
+          navigation.navigate('home');
 
-            if(meal.trim().length === 0 || description.trim().length === 0){ //Trim nao deixa caracteres no input
-                Alert.alert('Nova Refeição', 'Informe o nome da refeição e sua descrição') 
-            }
-
-            // if (!dietSelected) {
-            //     return Alert.alert(
-            //       'ATENÇÃO!',
-            //       'Por favor, escolha se está dentro ou fora da dieta.'
-            //     );
-            // }
-
-            const newData = {
-                id: mealId,
-                meal: meal,
-                description: description,
-                date: date,
-                hour: hour,
-                diet: dietSelected === 'Sim' ? true : false,
-            }            
-
-            //fazer depois 
-            // [ ] Colocar validacao dos campos
-            // [ ] Limpar os campos do formularios depois de cadastrado
-
-            const storageData = await mealsGetAll();
-
-            const dataByDate = storageData.find(
-                (item) => item.title === date
-            );
-
-            if (dataByDate) {
-                dataByDate.data = [...dataByDate.data, newData]       
-                await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storageData))
-                
-            } else {
-                // const formdata = {
-                //     title: date,
-                //     data: [{
-                //         description: description,
-                //         hour: hour,
-                //         meal: meal,
-                //     }]
-                // } 
-                
-                const formdata = {
-                    title: date,
-                    data: [{
-                        id: mealId,
-                        meal: meal,
-                        description: description,
-                        date: date,
-                        hour: hour,
-                        diet: dietSelected === 'Sim' ? true : false,
-                    }]
-                }   
-        
-                await mealCreate(formdata);   
-            }
-
-            // navigation.navigate('home')
-           
         } catch (error) {
-            if (error instanceof AppError){
-                Alert.alert('Nova Refeição', error.message)
-              } else {
-              Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
-            }
-        } 
-        
-        navigation.navigate('result', 
-        { variant: dietSelected === 'Sim' 
-        ? 'inDiet' : 'outDiet',});
+          if (error instanceof AppError) {
+            Alert.alert('Criar refeição', error.message);
 
-    }  
+          } else {
+            console.log(error);
+            Alert.alert('Criar refeição', 'Não foi possível criar a refeição.');
+          }
+        }
+    
+        navigation.navigate('result', {
+          variant: dietSelected === 'Sim' ? 'inDiet' : 'outDiet',
+        });
+    }
+
+    // async function handleNewMeal(){
+    //     try {
+
+    //         if(meal.trim().length === 0 || description.trim().length === 0){ //Trim nao deixa caracteres no input
+    //             Alert.alert('Nova Refeição', 'Informe o nome da refeição e sua descrição') 
+    //         }
+
+    //         // if (!dietSelected) {
+    //         //     return Alert.alert(
+    //         //       'ATENÇÃO!',
+    //         //       'Por favor, escolha se está dentro ou fora da dieta.'
+    //         //     );
+    //         // }
+
+    //         const newData = {
+    //             id: mealId,
+    //             meal: meal,
+    //             description: description,
+    //             date: date,
+    //             hour: hour,
+    //             diet: dietSelected === 'Sim' ? true : false,
+    //         }            
+
+    //         //fazer depois 
+    //         // [ ] Colocar validacao dos campos
+    //         // [ ] Limpar os campos do formularios depois de cadastrado
+
+    //         const storageData = await mealsGetAll();
+
+    //         const dataByDate = storageData.find(
+    //             (item) => item.title === date
+    //         );
+
+    //         if (dataByDate) {
+    //             dataByDate.data = [...dataByDate.data, newData]       
+    //             await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storageData))
+                
+    //         } else {
+    //             // const formdata = {
+    //             //     title: date,
+    //             //     data: [{
+    //             //         description: description,
+    //             //         hour: hour,
+    //             //         meal: meal,
+    //             //     }]
+    //             // } 
+                
+    //             const formdata = {
+    //                 title: date,
+    //                 data: [{
+    //                     id: mealId,
+    //                     meal: meal,
+    //                     description: description,
+    //                     date: date,
+    //                     hour: hour,
+    //                     diet: dietSelected === 'Sim' ? true : false,
+    //                 }]
+    //             }   
+        
+    //             await mealCreate(formdata);   
+    //         }
+
+    //         // navigation.navigate('home')
+           
+    //     } catch (error) {
+    //         if (error instanceof AppError){
+    //             Alert.alert('Nova Refeição', error.message)
+    //           } else {
+    //           Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
+    //         }
+    //     } 
+        
+    //     navigation.navigate('result', 
+    //     { variant: dietSelected === 'Sim' 
+    //     ? 'inDiet' : 'outDiet',});
+
+    // }  
   
     // function handleNew(){
     //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
@@ -179,20 +202,6 @@ export function NewMeal(){
             <NewMealHeader
                 title='Nova Refeição'
             />  
-
-            {/* <Controller 
-                control={control}
-                name="nameMeal"
-                render={({ field: { onChange, value } }) => (
-                <Input 
-                    placeholder='Digite seu alimento'
-                    title='Nome da refeição'
-                    onChangeText={onChange}                    
-                    value={value}
-                    errorMessage={errors.nameMeal?.message}
-                />
-                )}
-            /> */}
 
             <Input
                 placeholder='Digite seu alimento'

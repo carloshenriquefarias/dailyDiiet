@@ -1,13 +1,15 @@
-// import { Container, Title, Date, Hour, Content, Divider, SubContainer, SubContent} from './styles';
+// import { Container, Title, Icon, Hour, Content, Divider, SubContainer, SubContent} from './styles';
 // import { TouchableOpacityProps, Text } from "react-native";
+// import { DietVariant } from '@screens/Home';
 // import { Ball } from '@components/Ball';
-// import { useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 // type Props = TouchableOpacityProps & {
 //     date?: string;
 //     hour?: string;
-//     title?: string;      
-//     mealsGroup: Group
+//     description?: string;   
+//     variant: DietVariant;   
+//     // mealsGroup: Group
 // }
 
 // type Group = {
@@ -21,114 +23,74 @@
 //     description: string;
 // }
 
-// export function MealList({date, hour, title, mealsGroup }: Props ){
-    
+// export function MealList({ meals, date, hour, description, variant  }: Props ){
+  
 //     return(
 //         <Container>
+
+//             {/* <Date>
+//                 {meals.title}
+//             </Date>  */}
           
-//             <Date>
-//                 {mealsGroup.data}
-//             </Date>
-          
-//             {/* {mealsGroup.refeicoes.map((item: MealsItens) => {
-//                 return (
-//                     <SubContainer>  
+//             <SubContainer>  
 
-//                         <Content>
-                            
-//                             <SubContent>
+//                 <Content>
+                    
+//                     <SubContent>
 
-//                                 <Hour>
-//                                     {item.hora}
-//                                 </Hour>
+//                         <Hour>
+//                             {meals.hour}
+//                         </Hour>
 
-//                                 <Divider>
-//                                     |
-//                                 </Divider>
+//                         <Divider>
+//                             |
+//                         </Divider>
 
-//                                 <Title>
-//                                     {item.description}
-//                                 </Title>
+//                         <Title>
+//                             {meals.description}
+//                         </Title>
 
-//                             </SubContent>                    
+//                     </SubContent>  
 
-//                             <Ball/>
-                            
-//                         </Content> 
+//                     <Icon variant={variant} />                  
 
-//                     </SubContainer>
-//                 )
-//             })} */}        
-            
+//                     {/* <Ball/> */}
+                    
+//                 </Content> 
+
+//             </SubContainer>            
 
 //         </Container>
 //     );
 // }
 
-
-
-import { Container, Title, Icon, Hour, Content, Divider, SubContainer, SubContent} from './styles';
-import { TouchableOpacityProps, Text } from "react-native";
 import { DietVariant } from '@screens/Home';
-import { Ball } from '@components/Ball';
-import { useEffect, useState } from 'react';
+import { TouchableOpacityProps } from 'react-native';
+import { Container, Content, Icon, Divider, Time, Description} from './styles';
 
 type Props = TouchableOpacityProps & {
-    date?: string;
-    hour?: string;
-    description?: string;   
-    variant: DietVariant;   
-    // mealsGroup: Group
-}
+  description: string;
+  hour: string;
+  variant: DietVariant;
+};
 
-// type Group = {
-//     id: number,
-//     data : string
-//     refeicoes: MealsItens[]
-// }
+export function MealList({ description, hour, variant, ...rest }: Props) {
+  return (
+    <Container {...rest}>
+        <Content>            
+            <Time>
+                {hour}
+            </Time>
 
-// type MealsItens = {
-//     hora: string;
-//     description: string;
-// }
+            <Divider />
+            
+            <Description>
+                {description}
+            </Description>            
+        </Content>
 
-export function MealList({ meals, date, hour, description, variant  }: Props ){
-  
-    return(
-        <Container>
+      <Icon variant={variant} />
 
-            {/* <Date>
-                {meals.title}
-            </Date>  */}
-          
-            <SubContainer>  
-
-                <Content>
-                    
-                    <SubContent>
-
-                        <Hour>
-                            {meals.hour}
-                        </Hour>
-
-                        <Divider>
-                            |
-                        </Divider>
-
-                        <Title>
-                            {meals.description}
-                        </Title>
-
-                    </SubContent>  
-
-                    <Icon variant={variant} />                  
-
-                    {/* <Ball/> */}
-                    
-                </Content> 
-
-            </SubContainer>            
-
-        </Container>
-    );
+    </Container>
+  );
 }
