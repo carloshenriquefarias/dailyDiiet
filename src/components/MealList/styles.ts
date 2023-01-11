@@ -33,7 +33,7 @@ export const Time = styled.Text`
   ${({ theme }) => css`
         font-size: ${theme.FONTS.SIZE.LG}px;
         font-family: ${ theme.FONTS.FAMILY.BOLD};
-        color: ${ theme.COLORS.BASE.GRAY_100};
+        color: ${ theme.COLORS.BASE.GRAY_700};
   `}
 `;
 
@@ -48,7 +48,7 @@ export const Description = styled.Text`
     ${({ theme }) => css`
         font-size: ${theme.FONTS.SIZE.LG}px;
         font-family: ${ theme.FONTS.FAMILY.REGULAR};
-        color: ${ theme.COLORS.BASE.GRAY_300};
+        color: ${ theme.COLORS.BASE.GRAY_700};
     `}
 `;
 
