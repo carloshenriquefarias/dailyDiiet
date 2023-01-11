@@ -54,30 +54,31 @@ export type DataProps = {
 }
 
 export function Home(){   
+    
 
     const [meal, setMeal] = useState([
-        // {
-        //     title: '26.08.22',
-        //     data: [
-        //         {
-        //             hour: '07:00',
-        //             description: 'Cafe com bolo'
-        //         },
-        //         {
-        //             hour: '12:00',
-        //             description: 'Almoco'
-        //         }
-        //     ]
-        // },
-        // {
-        //     title: '27.08.22',
-        //     data: [
-        //         {
-        //             hour: '07:30',
-        //             description: 'Cafe com bolo'
-        //         }
-        //     ]
-        // },
+        {
+            title: '26/08/2022',
+            data: [
+                {
+                    hour: '07:00',
+                    description: 'Cafe com bolo'
+                },
+                {
+                    hour: '12:00',
+                    description: 'Almoco'
+                }
+            ]
+        },
+        {
+            title: '27/08/2022',
+            data: [
+                {
+                    hour: '07:30',
+                    description: 'Cafe com bolo'
+                }
+            ]
+        },
        
     ]);
     // const [mealData, setMealData] = useState([])
@@ -147,10 +148,11 @@ export function Home(){
     async function fetchMeal(){ //Busca os grupos ja cadastrados (CARREGAMENTO DOS GRUPOS)
     
         try {
-            // AsyncStorage.clear() //limpa os dados
+            //AsyncStorage.clear() //limpa os dados
             setIsLoading(true)
             const data = await mealsGetAll()           
-            // setData(data)              
+            setData(data)  
+           // console.log('18:44', data)            
     
         } catch (error) {
             if (error instanceof AppError){
@@ -256,11 +258,11 @@ export function Home(){
             { isLoading ? <Loading/> :
                 <SectionList
                     sections={data}
-                    keyExtractor={(meal, index) => meal.title + index}
+                    keyExtractor={(meal, index) => meal.description + index}
                     renderItem={({ item: meal }) => (
                         <MealList
-                            description={meal.title}
-                            hour={formatDate(meal.date, 'time')}
+                            description={meal.description}
+                            hour={meal.hour}
                             variant={meal.diet ? 'inDiet' : 'outDiet'}
                             onPress={() => handleOpenMealsDetails(mealsDataId)}
                         />
@@ -273,8 +275,8 @@ export function Home(){
                     )}
 
                     showsVerticalScrollIndicator={false}
-                    fadingEdgeLength={300}
-                    ListEmptyComponent={ListEmpty}
+                    fadingEdgeLength={300}                   
+                    ListEmptyComponent={() => <ListEmpty message='Está com fome? Que tal cadastrar a primeira refeição?'/>}
                 />  
             } 
             
