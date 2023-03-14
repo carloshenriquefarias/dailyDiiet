@@ -4,10 +4,11 @@ import { AppError } from '@utils/AppError';
 import { mealsGetAll } from './mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
 
-export async function mealCreate(newMeal: string) {
+export async function mealCreate(newMeal: any) {
     
   try {
     const storedMeals = await mealsGetAll();
+
     const mealAlreadyExists = storedMeals.includes(newMeal); //Verifica se ja existe algo igual na lista
 
     if(mealAlreadyExists) {

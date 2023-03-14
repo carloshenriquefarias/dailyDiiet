@@ -17,7 +17,7 @@ export const Container = styled(TouchableOpacity)`
   width: 100%;
   padding: 14px 16px;
   border-radius: 6px;
-  border: 1px solid ${({ theme }) => theme.COLORS.BASE.GRAY_500};
+  border: 1px solid ${({ theme }) => theme.COLORS.BASE.GRAY_300};
   margin-bottom: 10px;
   flex-direction: row;
   align-items: center;
@@ -31,16 +31,16 @@ export const Content = styled.View`
 
 export const Time = styled.Text`
   ${({ theme }) => css`
-        font-size: ${theme.FONTS.SIZE.LG}px;
+        font-size: ${theme.FONTS.SIZE.MD}px;
         font-family: ${ theme.FONTS.FAMILY.BOLD};
-        color: ${ theme.COLORS.BASE.GRAY_700};
+        color: ${ theme.COLORS.BASE.GRAY_600};
   `}
 `;
 
 export const Divider = styled.View`
   height: 14px;
   width: 1px;
-  background-color: ${({ theme }) => theme.COLORS.BASE.GRAY_400};
+  background-color: ${({ theme }) => theme.COLORS.BASE.GRAY_700};
   margin: 0 12px;
 `;
 
@@ -57,7 +57,7 @@ export const Icon = styled.View<Props>`
   height: 14px;
   border-radius: 7px;
   background-color: ${({ theme, variant }) =>
-    variant === 'inDiet' ? theme.COLORS.STYLES.PRIMARY_DARK : theme.COLORS.STYLES.SECONDARY_DARK};
+    variant === 'inDiet' ? theme.COLORS.STYLES.PRIMARY_MID : theme.COLORS.STYLES.SECONDARY_MID};
 `;
 
 

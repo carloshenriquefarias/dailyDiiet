@@ -42,6 +42,7 @@ ${({ theme, type, hasIcon }) => css`
   font-family: ${theme.FONTS.FAMILY.BOLD};
   font-size: ${theme.FONTS.SIZE.MD};
   margin-left: ${hasIcon ? '12px' : 0};
+  /* text-align: center; */
 `}`;
 
 // export const Title = styled.Text`

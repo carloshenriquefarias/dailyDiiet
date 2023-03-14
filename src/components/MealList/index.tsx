@@ -77,17 +77,17 @@ type Props = TouchableOpacityProps & {
 export function MealList({ description, hour, variant, ...rest }: Props) {
   return (
     <Container {...rest}>
-        <Content>            
-            <Time>
-                {hour}
-            </Time>
+      <Content>            
+        <Time>
+            {hour}
+        </Time>
 
-            <Divider />
-            
-            <Description>
-                {description}
-            </Description>            
-        </Content>
+        <Divider />
+        
+        <Description>
+          {description}
+        </Description>            
+      </Content>
 
       <Icon variant={variant} />
 

@@ -1,7 +1,8 @@
 export type MealDataDTO = {
     id: string;
     title: string;
-    date: number;
     description: string;
+    date: number;
+    hour: number;
     diet: boolean;
 };

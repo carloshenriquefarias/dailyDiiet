@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '@screens/Home';
 import { NewMeal } from '@screens/NewMeal';
 import { Meal } from '@screens/Meal';
-import { Result } from '@screens/Result';
+import { ResultPositive } from '@screens/ResultPositive';
 import { StatisticsPainel } from '@screens/StatisticsPainel';
+import { ResultNegative } from '@screens/ResultNegative';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -27,8 +28,13 @@ export function AppRoutes(){
       />
 
       <Screen 
-        name="result"
-        component={Result}
+        name="resultpositive"
+        component={ResultPositive}
+      />
+
+      <Screen 
+        name="resultnegative"
+        component={ResultNegative}
       />
 
       <Screen 

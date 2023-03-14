@@ -16,13 +16,23 @@ export const Container = styled(SafeAreaView)`
   margin: 15px;
 `;
 
-export const Heading = styled.Text<Props>`
-  ${({ theme, variant }) => css`
-    color: ${variant === 'inDiet'
-      ? theme.COLORS.STYLES.PRIMARY_DARK
-      : theme.COLORS.STYLES.SECONDARY_DARK};
+export const ContentButton = styled.View`
+  /* flex: 1; */
+  /* justify-content: center;
+  align-items: center; */
+  /* background-color: ${({ theme }) => theme.COLORS.BASE.GRAY_100}; */
+  margin-left: 20px;
+  margin-right: 20px;
+`;
+
+export const Heading = styled.Text`
+  ${({ theme,  }) => css`
+    color: ${
+      theme.COLORS.STYLES.PRIMARY_DARK
+      // : theme.COLORS.STYLES.SECONDARY_DARK
+      };
     font-family: ${theme.FONTS.FAMILY.BOLD};
-    font-size: ${theme.FONTS.SIZE.MD};
+    font-size: ${theme.FONTS.SIZE.XLG};
   `}
   margin-bottom: 8px;
 `;
@@ -33,7 +43,7 @@ export const Message = styled.Text`
   ${({ theme }) => css`
     color: ${theme.COLORS.BASE.GRAY_600};
     font-family: ${theme.FONTS.FAMILY.REGULAR};
-    font-size: ${theme.FONTS.SIZE.MD};
+    font-size: ${theme.FONTS.SIZE.LG};
   `}
   text-align: center;
 `;
