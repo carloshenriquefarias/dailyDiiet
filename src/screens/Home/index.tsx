@@ -26,6 +26,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { AppError } from '@utils/AppError';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
+import { MealListDTO } from 'src/dtos/NewMeal';
+import { storageMealGet } from '@storage/storageMeal';
 
 // type RootParamList = {
 //     home: undefined;
@@ -84,7 +86,7 @@ export function Home(){
     // const [mealData, setMealData] = useState([])
     // const [meal, setMeal] = useState<string[]>([])
 
-    const [data, setData] = useState<DataProps[]>([]);    
+    const [data, setData] = useState<MealListDTO[]>([]);      
    
     const [isLoading, setIsLoading] = useState(true);
     const navigation = useNavigation()  
@@ -96,6 +98,22 @@ export function Home(){
     const totalMeals = 100
     const percentageInDiet = totalMealsInDiet / totalMeals;
     const numberFormattedPercentageInDiet = formatPercentage(totalMealsInDiet, totalMeals);   
+
+
+
+
+    // const dadosParanaue =[
+    //     {
+    //     date: '123',
+    //     data: [{
+    //         nameMeal: 'aaa',
+    //         description: 'bbbb',
+    //         hour: 'cccccc',
+    //         isInDiet: true,
+    //         }]
+    //     }
+
+    // ]
 
     // async function tratarDados(storage: any) {
     //     console.log()
@@ -149,10 +167,12 @@ export function Home(){
     
         try {
             //AsyncStorage.clear() //limpa os dados
+            
             setIsLoading(true)
-            const data = await mealsGetAll()           
-            setData(data)  
-           // console.log('18:44', data)            
+            const mealLoad = await storageMealGet();
+            // const data = await mealsGetAll()           
+            setData([mealLoad])  
+            // console.log('MINHA LISTA', mealLoad);          
     
         } catch (error) {
             if (error instanceof AppError){
@@ -177,11 +197,13 @@ export function Home(){
 
     function handleOpenMealsDetails(mealsDataId: string) { 
         //Pegando a refeição pelo ID
-        navigation.navigate('meal', {mealsDataId});
+        // navigation.navigate('meal', {mealsDataId});
     }  
 
     useFocusEffect(useCallback(() => { //Listando grupos cadastrados na tela principal
         fetchMeal()
+
+        
     }, []));
 
     useEffect(() => {
@@ -264,13 +286,13 @@ export function Home(){
                             description={meal.description}
                             hour={meal.hour}
                             variant={meal.diet ? 'inDiet' : 'outDiet'}
-                            onPress={() => handleOpenMealsDetails(mealsDataId)}
+                            // onPress={() => handleOpenMealsDetails(mealsDataId)}
                         />
                     )}
 
-                    renderSectionHeader={({ section: { title } }) => (
+                    renderSectionHeader={({ section: { date } }) => (
                         <ListHeader>
-                            {title}
+                            {date}
                         </ListHeader>
                     )}
 

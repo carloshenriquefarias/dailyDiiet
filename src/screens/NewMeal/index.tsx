@@ -24,6 +24,8 @@ import { mealCreate } from '@storage/meals/mealsCreate';
 import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MealListDTO } from 'src/dtos/NewMeal';
+import { storageAdsSave, storageMealCreate, storageMealSave } from '@storage/storageMeal';
 
 // type RootParamList = {
 //     home: undefined;
@@ -39,158 +41,80 @@ export function NewMeal(){
     
     const navigation = useNavigation()
     const [meal, setMeal] = useState('')
-    const [description, setDescription] = useState('')
- 
-    const [hour, setHour] = useState('')    
+    const [description, setDescription] = useState('') 
+    const [hour, setHour] = useState('')  
+    const [dateMeal, setDateMeal] = useState('')  
+    const [isInDiet, setisInDiet] = useState (true);
     
-    const [buttonSelected, setButtonSelected] = useState('')  
+    const [buttonSelected, setButtonSelected] = useState('');
+    const [isLoading, setIsLoading] = useState(false); 
     
     const [newDate, setNewDate] = useState<number>(new Date().getTime());
     const [dietSelected, setDietSelected] = useState <string> ();
-    const mealId = useId();
 
     function handleDietSelected(option: string) {
         setDietSelected(option);
     }
 
-    async function handleNewMeal() {
-        //Verificação
-        if (meal.trim().length === 0 || description.trim().length === 0) {
-          return Alert.alert('Nova Refeição', 'Preencha o nome e a descrição.');
-        }
-
-        // if (!dietSelected) {
-        //   return Alert.alert(
-        //     'Nova Refeição',
-        //     'Selecione se está dentro ou fora da dieta.'
-        //   );
-        // }
-
-        //Dados dos inputs
-
-        const newMeal = {
-            title: formatedDate(newDate),
-            data: [{
-                id: mealId,
-                meal: meal,
-                description: description,
-                date: formatedDate(newDate, 'date') ,
-                hour: hour,
-                diet: dietSelected === 'Sim' ? true : false,
-            }]
-        }  
-        console.log('valor da data',newDate)  
-        return       
-    
-        //Crie e armazene a função do A.Storage
-        try {
-          await mealCreate(newMeal);
-          navigation.navigate('home');
-
-        } catch (error) {
-          if (error instanceof AppError) {
-            Alert.alert('Criar refeição', error.message);
-
-          } else {
-            console.log(error);
-            Alert.alert('Criar refeição', 'Não foi possível criar a refeição.');
-          }
-        }
-    
-        navigation.navigate('result', {
-          variant: dietSelected === 'Sim' ? 'inDiet' : 'outDiet',
-        });
+    function handleOpenResult() { 
+        navigation.navigate('resultnegative');
     }
 
-    async function handleNewMeal2(){
-        try {
+    async function handleNewMealData({ date, data }: MealListDTO) {
+        try { 
+            setIsLoading(true) 
 
-            if(meal.trim().length === 0 || description.trim().length === 0){ //Trim nao deixa caracteres no input
-                Alert.alert('Nova Refeição', 'Informe o nome da refeição e sua descrição') 
+            const dataMeal = {
+                date: dateMeal,            
+                data: [{
+                    nameMeal: meal,
+                    description: description,
+                    hour:  hour,                    
+                    isInDiet: isInDiet,
+                }]
             }
 
-           
+            // console.log('NOVOS DADOS =>', dataMeal)
+            // return
 
-            const newData = {
-                id: mealId,
-                meal: meal,
-                description: description,
-                date: date,
-                hour: hour,
-                diet: dietSelected === 'Sim' ? true : false,
-            }            
+            // await mealCreate(dataMeal);
+            await storageMealCreate(dataMeal);
+            setIsLoading(false)
 
-            //fazer depois 
-            // [ ] Colocar validacao dos campos
-            // [ ] Limpar os campos do formularios depois de cadastrado
-
-            const storageData = await mealsGetAll();
-
-            const dataByDate = storageData.find(
-                (item) => item.title === date
-            );
-
-            if (dataByDate) {
-                dataByDate.data = [...dataByDate.data, newData]       
-                await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storageData))
-                
-            } else {
-                
-                const formdata = {
-                    title: date,
-                    data: [{
-                        id: mealId,
-                        meal: meal,
-                        description: description,
-                        date: date,
-                        hour: hour,
-                        diet: dietSelected === 'Sim' ? true : false,
-                    }]
-                }   
-        
-                await mealCreate(formdata);   
-            }
-
-            // navigation.navigate('home')
-           
+            handleOpenResult();               
+                  
         } catch (error) {
-            if (error instanceof AppError){
-                Alert.alert('Nova Refeição', error.message)
-              } else {
-              Alert.alert('Nova Refeição', 'Não foi possível criar uma nova refeição')
-            }
-        } 
+            setIsLoading(false);
         
-        navigation.navigate('result', 
-        { variant: dietSelected === 'Sim' 
-        ? 'inDiet' : 'outDiet',});
+            const isAppError = error instanceof AppError;
+            const title = isAppError ? error.message : 
+            Alert.alert('Criar refeição', 'Não foi possível criar a refeição!')
+        }    
+        
+        // navigation.navigate('result', 
+        // { variant: dietSelected === 'Sim' 
+        // ? 'inDiet' : 'outDiet',});
 
-    }  
-  
-    // function handleNew(){
-    //     navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
-    // }
+    }
 
     function handleButtonSelected(type: 'Sim' | 'Não'){
         setButtonSelected(type)
     }
 
-    function onChange(event: DateTimePickerEvent, selectedDate?: Date) {
+    // function onChange(event: DateTimePickerEvent, selectedDate?: Date) {
         
-        let date = formatedDate(selectedDate!.getTime(),'date');
-        setNewDate(date);
-    }
+    //     let date = formatedDate(selectedDate!.getTime(),'date');
+    //     setNewDate(date);
+    // }
 
-    function showMode(mode: 'date' | 'time') {
-        DateTimePickerAndroid.open({
-            value: new Date(newDate),
-            onChange,
-            mode,
-            is24Hour: true,
-        });
-
-        
-    }
+    // function showMode(mode: 'date' | 'time') {
+    //     DateTimePickerAndroid.open({
+    //         value: new Date(newDate),
+    //         onChange,
+    //         mode,
+    //         is24Hour: true,
+    //     });        
+    // }
 
     return(
 
@@ -215,17 +139,17 @@ export function NewMeal(){
                 <InputHalf
                     placeholder='Data'
                     title='Data' 
-                    //onChangeText={setDate} //Armazenar os dados de uma tela pra outra                   
+                    onChangeText={setDateMeal} //Armazenar os dados de uma tela pra outra                   
                     //value={date}                 
-                    onPressIn={() => showMode('date')}
-                    defaultValue={newDate}
+                    // onPressIn={() => showMode('date')}
+                    // defaultValue={newDate}
                 />
                 <InputHalf
                     placeholder='Hora'
                     title='Hora'
                     onChangeText={setHour} //Armazenar os dados de uma tela pra outra            
-                    onPressIn={() => showMode('time')}
-                    defaultValue={formatDate(newDate, 'time')}                   
+                    // onPressIn={() => showMode('time')}
+                    // defaultValue={formatDate(newDate, 'time')}                   
                 />
             </ContentInput>
             
@@ -248,13 +172,23 @@ export function NewMeal(){
                     type='SECONDARY'
                     onPress={() => handleButtonSelected('Não')}   
                 />
+
+                <ButtonHalf                    
+                    title='Cadastar'
+                    isActive={buttonSelected === 'Não'}
+                    type='SECONDARY'
+                    onPress={handleNewMealData}   
+                />
+
             </MiniContainer>
 
+           
             <SubContainer>
                 <Button
                     title="Cadastrar Refeição"
                     type='PRIMARY'
-                    onPress={handleNewMeal}                               
+                    // isLoading={isLoading}
+                    // onPress={handleNewMealData}                               
                 /> 
             </SubContainer>              
 

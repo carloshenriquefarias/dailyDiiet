@@ -4,7 +4,7 @@ export const Title = styled.Text`
   ${({ theme }) => css`
     font-size: 15px;
     color: ${theme.COLORS.BASE.DARK};
-    font-family: ${theme.FONTS.FAMILY.BOLD};
+    /* font-family: ${theme.FONTS.FAMILY.BOLD}; */
   `};
   margin-top: 25px;
   margin-bottom: 12px;

@@ -6,7 +6,7 @@ import {ActivityIndicator, StatusBar} from 'react-native'
 import { Home } from '@screens/Home';
 import { StatisticsPainel } from '@screens/StatisticsPainel';
 import { NewMeal } from '@screens/NewMeal';
-import { Result } from '@screens/Result';
+// import { Result } from '@screens/ResultPositive';
 
 import {Routes} from './src/routes';
 

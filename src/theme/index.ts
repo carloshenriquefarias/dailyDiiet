@@ -28,7 +28,8 @@ export default {
         SIZE: {
             SM: 12,
             MD: 14,
-            LG: 16
+            LG: 16,
+            XLG: 20
         }
     }
 }
