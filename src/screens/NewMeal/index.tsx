@@ -25,7 +25,7 @@ import { mealsGetAll } from '@storage/meals/mealsGetAll';
 import { MEAL_COLLECTION } from '@storage/storageConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MealListDTO } from 'src/dtos/NewMeal';
-import { storageAdsSave, storageMealCreate, storageMealSave } from '@storage/storageMeal';
+import { storageMealCreate } from '@storage/storageMeal';
 
 // type RootParamList = {
 //     home: undefined;
@@ -61,7 +61,11 @@ export function NewMeal(){
     }
 
     async function handleNewMealData({ date, data }: MealListDTO) {
+        // await storageMealRemove()
+        // console.log('zerou?')
+        
         try { 
+            
             setIsLoading(true) 
 
             const dataMeal = {
@@ -72,12 +76,8 @@ export function NewMeal(){
                     hour:  hour,                    
                     isInDiet: isInDiet,
                 }]
-            }
-
-            // console.log('NOVOS DADOS =>', dataMeal)
-            // return
-
-            // await mealCreate(dataMeal);
+            }           
+         
             await storageMealCreate(dataMeal);
             setIsLoading(false)
 
@@ -139,7 +139,7 @@ export function NewMeal(){
                 <InputHalf
                     placeholder='Data'
                     title='Data' 
-                    onChangeText={setDateMeal} //Armazenar os dados de uma tela pra outra                   
+                    onChangeText={setDateMeal}                  
                     //value={date}                 
                     // onPressIn={() => showMode('date')}
                     // defaultValue={newDate}
@@ -147,7 +147,7 @@ export function NewMeal(){
                 <InputHalf
                     placeholder='Hora'
                     title='Hora'
-                    onChangeText={setHour} //Armazenar os dados de uma tela pra outra            
+                    onChangeText={setHour}           
                     // onPressIn={() => showMode('time')}
                     // defaultValue={formatDate(newDate, 'time')}                   
                 />

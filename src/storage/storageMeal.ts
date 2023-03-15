@@ -9,14 +9,21 @@ export async function storageMealCreate(newMeal: string) {
     
   try {
     const storedMeals = await mealsGetAll();
-    const mealAlreadyExists = storedMeals.includes(newMeal); //Verifica se ja existe algo igual na lista
+
+    console.log('storedMeals',storedMeals)
+
+    const mealAlreadyExists = storedMeals.includes(newMeal);
+
+    console.log('mealAlreadyExists',mealAlreadyExists)
 
     if(mealAlreadyExists) {
-      throw new AppError('Já existe uma refeição cadastrada com esse nome.') //Verificar o AppError
+      throw new AppError('Já existe uma refeição cadastrada com esse nome.')
     }
 
     const storage = JSON.stringify([...storedMeals, newMeal])
-    // console.log('AQUI', storage)
+    
+    console.log('storage', storage)
+
     await AsyncStorage.setItem(MEAL_COLLECTION, storage);
     
   } catch (error) {
@@ -24,9 +31,6 @@ export async function storageMealCreate(newMeal: string) {
   }
 }
 
-export async function storageMealSave(meal: MealListDTO) {
-    await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(meal));
-}
 
 export async function storageMealGet() {
   const storage = await AsyncStorage.getItem(MEAL_COLLECTION);
