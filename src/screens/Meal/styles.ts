@@ -17,7 +17,7 @@ export const Content = styled.View`
 export const Title = styled.Text`
     ${({ theme }) => css`
         font-family: ${theme.FONTS.FAMILY.BOLD};
-        font-size: ${theme.FONTS.SIZE.LG}px;
+        font-size: ${theme.FONTS.SIZE.XLG}px;
         color: ${theme.COLORS.BASE.GRAY_700};
     `};
     margin-bottom: 10px;
@@ -44,10 +44,10 @@ export const TitleDateAndHour = styled.Text`
 
 export const DateAndHour = styled.Text`
     ${({ theme }) => css`        
-        font-size: ${theme.FONTS.SIZE.MD}px;
+        font-size: ${theme.FONTS.SIZE.LG}px;
         color: ${theme.COLORS.BASE.GRAY_700};
     `};
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 20px;    
 `
 export const Result = styled.Text`
@@ -63,5 +63,5 @@ export const Result = styled.Text`
     text-align: center;
     padding: 10px;
     border-radius: 16px;
-    margin-bottom: 350px;
+    margin-bottom: 200px;
 `

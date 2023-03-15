@@ -29,17 +29,6 @@ import { MEAL_COLLECTION } from '@storage/storageConfig';
 import { MealListDTO } from 'src/dtos/NewMeal';
 import { storageMealGet } from '@storage/storageMeal';
 
-// type RootParamList = {
-//     home: undefined;
-//     newmeal: undefined;
-//     statisticspainel: undefined;
-//     result: {
-//       newmeal: string;
-//     }
-// }
-
-//Colocar estes dados no DTO
-
 export type DietVariant = 'inDiet' | 'outDiet';
 
 export type MealData = {
@@ -55,124 +44,28 @@ export type DataProps = {
   data: MealData[];
 }
 
-export function Home(){   
-    
-
-    const [meal, setMeal] = useState([
-        {
-            title: '26/08/2022',
-            data: [
-                {
-                    hour: '07:00',
-                    description: 'Cafe com bolo'
-                },
-                {
-                    hour: '12:00',
-                    description: 'Almoco'
-                }
-            ]
-        },
-        {
-            title: '27/08/2022',
-            data: [
-                {
-                    hour: '07:30',
-                    description: 'Cafe com bolo'
-                }
-            ]
-        },
-       
-    ]);
-    // const [mealData, setMealData] = useState([])
-    // const [meal, setMeal] = useState<string[]>([])
+export function Home() {   
 
     const [data, setData] = useState<MealListDTO[]>([]);      
-   
     const [isLoading, setIsLoading] = useState(true);
-    const navigation = useNavigation()  
-    const { COLORS } = useTheme();     
-
     const [diet, setDiet] = useState<DietVariant>('inDiet');
 
-    const totalMealsInDiet = 48
-    const totalMeals = 100
+    const navigation = useNavigation();
+    const totalMealsInDiet = 48;
+    const totalMeals = 100;
     const percentageInDiet = totalMealsInDiet / totalMeals;
     const numberFormattedPercentageInDiet = formatPercentage(totalMealsInDiet, totalMeals);   
 
-
-
-
-    // const dadosParanaue =[
-    //     {
-    //     date: '123',
-    //     data: [{
-    //         nameMeal: 'aaa',
-    //         description: 'bbbb',
-    //         hour: 'cccccc',
-    //         isInDiet: true,
-    //         }]
-    //     }
-
-    // ]
-
-    // async function tratarDados(storage: any) {
-    //     console.log()
-    //     var newItem = []
-    //     var resultado = storage.map((item , key) => {
-           
-    //         if (key == 0) {
-    //             newItem.push({
-    //                 id: key+1,
-    //                 data: item.date,
-    //                 refeicoes: [
-    //                     {
-    //                         hora: item.hour,
-    //                         description: item.description
-    //                     }
-    //                 ]
-    //             })
-    //         } else { 
-
-    //             if (item.date != storage[key-1].date ) {
-    //                 newItem.push({
-    //                     id: key+1,
-    //                     data: item.date,
-    //                     refeicoes: [
-    //                         {
-    //                             hora: item.hour,
-    //                             description: item.description
-    //                         }
-    //                     ]
-    //                 })
-    //             }
-    //             else {
-                    
-    //                 newItem[key-1].refeicoes.push({
-    //                     hora: item.hour,
-    //                     description: item.description
-    //                 }) 
+    const { COLORS } = useTheme();
     
-    //             } 
-    //         } 
-            
-    //         return newItem;
-
-    //     })
-       
-    //     return resultado
-    // }
-
-    
-    async function fetchMeal(){ //Busca os grupos ja cadastrados (CARREGAMENTO DOS GRUPOS)
-    
+    async function fetchMeal(){  
         try {
-            //AsyncStorage.clear() //limpa os dados
-            
-            setIsLoading(true)
-            const mealLoad = await storageMealGet();
-            // const data = await mealsGetAll()           
-            setData([mealLoad])  
-            // console.log('MINHA LISTA', mealLoad);          
+                     
+            setIsLoading(true);
+            const mealLoad = await storageMealGet(); 
+
+            setData(mealLoad)  
+            // console.log ()     
     
         } catch (error) {
             if (error instanceof AppError){
@@ -188,22 +81,23 @@ export function Home(){
     }
 
     function handleNewMeal(){
-        navigation.navigate('newmeal') //Definir os tipos de navegação no @types              
+        navigation.navigate('newmeal')            
     }
 
     function handleStatisticsMenu(){       
         navigation.navigate('statisticspainel')
-    }    
+    } 
+    
+    // function handleOpenGroup(group: string){
+    //     navigation.navigate('players', {group})
+    // }
 
-    function handleOpenMealsDetails(mealsDataId: string) { 
-        //Pegando a refeição pelo ID
-        // navigation.navigate('meal', {mealsDataId});
+    function handleOpenMealsDetails(meal: string) { 
+        navigation.navigate('meal', {meal});
     }  
 
     useFocusEffect(useCallback(() => { //Listando grupos cadastrados na tela principal
-        fetchMeal()
-
-        
+        fetchMeal()    
     }, []));
 
     useEffect(() => {
@@ -233,49 +127,7 @@ export function Home(){
                 type='PRIMARY'
                 onPress={handleNewMeal}
                 icon={<Plus size={18} color={COLORS.BASE.LIGHT} />}
-            />    
-        
-            {/* { isLoading ? <Loading/> :
-                    <FlatList
-                        data={meal}
-                        keyExtractor={(item, key) => item.id }
-                        renderItem={({item}) => (
-                            <MealList
-                                mealsGroup={item}                      
-                                // onPress={handleStatisticsMenu} 
-                                onPress={() => handleOpenMeal(item)}                       
-                            />
-                        )}
-                        // horizontal
-                        // contentContainerStyle={meal.length === 0 && {flex: 1}}
-                        ListEmptyComponent={() => <ListEmpty message='Que tal cadastrar a primeira refeição?'/>}
-                    /> 
-            }              */}
-
-            {/* { isLoading ? <Loading/> :
-                <SectionList 
-                    sections={meal}
-                    keyExtractor={(item, key) => key}
-                    renderItem={({ item }) => (
-                        
-                        <MealList
-                            meals={item}
-                            onPress={() => handleOpenMealsDetails(item.id)} 
-                            //mealsGroup={item}                      
-                            // onPress={handleStatisticsMenu} 
-                            // onPress={() => handleOpenMeal(item)}                       
-                        />
-                    )}
-
-                    renderSectionHeader={({ section }) => (
-                    <Text>
-                        {section.title}
-                    </Text>
-                    )}                    
-                    ListEmptyComponent={() => <ListEmpty message='Está com fome? Que tal cadastrar a primeira refeição?'/>}
-                    showsVerticalScrollIndicator={false}
-                />  
-            }  */}
+            />
 
             { isLoading ? <Loading/> :
                 <SectionList
@@ -286,7 +138,7 @@ export function Home(){
                             description={meal.description}
                             hour={meal.hour}
                             variant={meal.diet ? 'inDiet' : 'outDiet'}
-                            // onPress={() => handleOpenMealsDetails(mealsDataId)}
+                            onPress={() => handleOpenMealsDetails(meal)}
                         />
                     )}
 

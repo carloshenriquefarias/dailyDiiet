@@ -11,6 +11,8 @@ import { ButtonHalf } from '@components/ButtonHalf';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; //Navegação
 import {useState, useEffect, useCallback} from 'react'
+import { storageMealGet, storageMealRemove } from '@storage/storageMeal';
+import { MealListDTO } from 'src/dtos/NewMeal';
 
 type RootParamList = {
     home: undefined;
@@ -25,27 +27,60 @@ export function Meal(){
     
     const navigation = useNavigation()
 
+    const [meal, setMeal] = useState<MealListDTO[]>([])
+
     function handleRegister(){
-        navigation.navigate('statisticspainel') //Definir os tipos de navegação no @types
+        navigation.navigate('statisticspainel')
     }
 
-    async function mealRemove(){
+    // async function fetchPlayersByTeam(){
+    //     try {
+    //         // setIsLoading(true)
+    //         const getMeal = await storageMealGet (meal, );
+    //         setMeal(getMeal)            
+    
+    //     } catch (error) {            
+    //         // Alert.alert('Pessoas', 'Não foi possível adicionar as pessoas')          
+    //     } 
+    //     finally{
+    //         // setIsLoading(false)
+    //     }       
+    // }
+
+    // async function handlePlayerRemove(playerName: string){
+    //     try {
+    //         await playerRemoveByGroup(playerName, group);
+    //         fetchPlayersByTeam();            
+    
+    //     } catch (error) {            
+    //         Alert.alert('Remover Pessoa', 'Não foi possível remover a pessoa')          
+    //     }        
+    // }
+
+    function handleGoToHome() {
+        navigation.navigate('home');
+    }
+
+    async function handleMealRemove(mealID: string){
         try {
+
+            await storageMealRemove();
+            // fetchPlayersByTeam();  
+            
+            Alert.alert(
+                'Remover', 
+                'Deseja remover a refeição?',
+                [
+                    {text: 'Não', style: 'cancel'},
+                    {text: 'Sim', onPress:() => storageMealRemove()}
+                ]
+            )
+            
+            handleGoToHome();
                
         } catch (error) {            
             Alert.alert('Remover Refeição', 'Não foi possível remover a refeição')          
-        }  
-    }
-
-    async function handleMealRemove(){
-        Alert.alert(
-            'Remover', 
-            'Deseja remover a refeição?',
-            [
-                {text: 'Não', style: 'cancel'},
-                {text: 'Sim', onPress:() => mealRemove()}
-            ]
-        )              
+        }                   
     }
 
     return(
@@ -73,12 +108,12 @@ export function Meal(){
                 </DateAndHour>
 
                 <Result>
-                    Dentro da dieta
+                    dentro da dieta
                 </Result>
 
                 <Button
                     title="Editar Refeição"
-                    type='PRIMARY'
+                    type='SECONDARY'
                     onPress={handleRegister}
                 />   
 

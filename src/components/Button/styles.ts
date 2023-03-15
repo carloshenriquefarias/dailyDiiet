@@ -20,7 +20,7 @@ export const Container = styled(TouchableOpacity)<Props>`
       ? theme.COLORS.BASE.GRAY_600
       : 'transparent'};
     border: 1px solid
-      ${type === 'PRIMARY' ? 'transparent' : theme.COLORS.BASE.GRAY_200};
+      ${type === 'PRIMARY' ? 'transparent' : theme.COLORS.BASE.GRAY_500};
   `}
 
   /* background-color: ${({ theme, type }) => 
@@ -31,7 +31,7 @@ export const Container = styled(TouchableOpacity)<Props>`
   flex-direction: row;
   justify-content: center;
   align-items: center; 
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const Title = styled.Text<Props>`
